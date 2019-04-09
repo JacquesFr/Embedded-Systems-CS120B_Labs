@@ -1,6 +1,7 @@
 /*
- * jfrac001_lab2_part2.c
- *
+ * Jacques Fracchia
+ * jfrac001@ucr.edu
+ * Lab 2 part 2
  * Created: 4/3/2019 2:22:10 PM
  * Author : jacqu
  */ 

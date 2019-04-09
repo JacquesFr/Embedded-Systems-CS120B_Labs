@@ -1,8 +1,9 @@
 /*
- * jfrac001_lab2_part1.c
- *
+ * Jacques Fracchia
+ * jfrac001@ucr.edu
+ * Lab 2 part 1
  * Created: 4/3/2019 10:19:33 AM
- * Author : ucrcse
+ * 
  */ 
 
 #include <avr/io.h>
