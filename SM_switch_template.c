@@ -5,7 +5,47 @@
 
 enum state {Init} state;
 
-void tick();
+void tick(){
+	
+	switch(state)	{		//State Transitions
+		
+		case(Init):
+		if(){
+			//Transition
+		}
+		else{
+			//Transition
+		}
+		break;
+		
+		case():
+		if(){
+			//Transition
+		}
+		else{
+			//Transition
+		}
+		break;
+		
+		default:
+		state = Init;
+		break;
+	}
+	
+	switch(state){		//State Actions
+		case(Init):
+		//Actions
+		break;
+		
+		case():
+		//Actions
+		break;
+		
+		default:
+		//Actions
+		break;
+	}
+}
 
 
 int main(void)
@@ -13,7 +53,7 @@ int main(void)
 	DDRA = 0x00; PINA = 0xFF;
 	DDRB = 0xFF; PINB = 0x00;
 
-	states = Init;
+	state = Init;
 	
 	while (1)
 	{
@@ -21,44 +61,4 @@ int main(void)
 	}
 }
 
-tick(){
-	
-	switch(state)	{		//State Transitions
-		
-		case(Init):
-			if(){
-				//Transition
-			}
-			else{
-				//Transition
-			}
-		break;
-		
-		case():
-			if(){
-				//Transition
-			}
-			else{
-				//Transition
-			}
-		break;
-		
-		default:
-			state = Init;
-		break;
-	}
-	
-	switch(state){		//State Actions
-		case(Init):
-			//Actions
-		break;
-		
-		case():
-			//Actions
-		break;
-		
-		default:
-			//Actions
-		break;
-	}
-}
+
