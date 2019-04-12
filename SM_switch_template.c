@@ -3,11 +3,27 @@
 */
 #include <avr/io.h>
 
-enum states {Init} states;
+enum state {Init} state;
 
-void tick(){
+void tick();
+
+
+int main(void)
+{
+	DDRA = 0x00; PINA = 0xFF;
+	DDRB = 0xFF; PINB = 0x00;
+
+	states = Init;
 	
-	switch(states)	{		//State Transitions
+	while (1)
+	{
+		tick();
+	}
+}
+
+tick(){
+	
+	switch(state)	{		//State Transitions
 		
 		case(Init):
 			if(){
@@ -28,13 +44,13 @@ void tick(){
 		break;
 		
 		default:
-			states = Init;
+			state = Init;
 		break;
 	}
 	
-	switch(states){		//State Actions
-		case(Init):		
-			//Actions	
+	switch(state){		//State Actions
+		case(Init):
+			//Actions
 		break;
 		
 		case():
@@ -44,19 +60,5 @@ void tick(){
 		default:
 			//Actions
 		break;
-	}
-}
-
-
-int main(void)
-{
-	DDRA = 0x00; PINA = 0xFF;
-	DDRB = 0xFF; PINB = 0x00;
-
-	states = Init;
-	
-	while (1)
-	{
-		tick();
 	}
 }
