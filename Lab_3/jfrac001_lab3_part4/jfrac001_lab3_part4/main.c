@@ -21,6 +21,9 @@ int main(void)
 		temp_a_upper = PINA & 0xF0;
 		temp_a_lower = PINA & 0x0F;
 		
+		temp_a_lower = temp_a_lower << 4;
+		temp_a_upper = temp_a_upper >> 4;
+		
 		PORTB = temp_a_upper;
 		PORTC = temp_a_lower;
     }

@@ -3,29 +3,29 @@ jfrac001_lab3_part4.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  00000116  2**0
+  0 .data         00000000  00800100  00800100  0000011a  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000000c2  00000000  00000000  00000054  2**1
+  1 .text         000000c6  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .comment      00000030  00000000  00000000  00000116  2**0
+  2 .comment      00000030  00000000  00000000  0000011a  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000148  2**2
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000014c  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000020  00000000  00000000  00000188  2**0
+  4 .debug_aranges 00000020  00000000  00000000  0000018c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000843  00000000  00000000  000001a8  2**0
+  5 .debug_info   00000843  00000000  00000000  000001ac  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000797  00000000  00000000  000009eb  2**0
+  6 .debug_abbrev 00000797  00000000  00000000  000009ef  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000025c  00000000  00000000  00001182  2**0
+  7 .debug_line   00000270  00000000  00000000  00001186  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000024  00000000  00000000  000013e0  2**2
+  8 .debug_frame  00000024  00000000  00000000  000013f8  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000410  00000000  00000000  00001404  2**0
+  9 .debug_str    00000410  00000000  00000000  0000141c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    0000003e  00000000  00000000  00001814  2**0
+ 10 .debug_loc    0000005d  00000000  00000000  0000182c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000010  00000000  00000000  00001852  2**0
+ 11 .debug_ranges 00000010  00000000  00000000  00001889  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -110,7 +110,7 @@ Disassembly of section .text:
   94:	de bf       	out	0x3e, r29	; 62
   96:	cd bf       	out	0x3d, r28	; 61
   98:	02 d0       	rcall	.+4      	; 0x9e <main>
-  9a:	11 c0       	rjmp	.+34     	; 0xbe <_exit>
+  9a:	13 c0       	rjmp	.+38     	; 0xc2 <_exit>
 
 0000009c <__bad_interrupt>:
   9c:	b1 cf       	rjmp	.-158    	; 0x0 <__vectors>
@@ -147,19 +147,24 @@ int main(void)
 		
 		temp_a_upper = PINA & 0xF0;
   b0:	90 b1       	in	r25, 0x00	; 0
-  b2:	90 7f       	andi	r25, 0xF0	; 240
 		temp_a_lower = PINA & 0x0F;
-  b4:	80 b1       	in	r24, 0x00	; 0
-  b6:	8f 70       	andi	r24, 0x0F	; 15
+  b2:	80 b1       	in	r24, 0x00	; 0
+		
+		temp_a_lower = temp_a_lower << 4;
+  b4:	82 95       	swap	r24
+  b6:	80 7f       	andi	r24, 0xF0	; 240
+		temp_a_upper = temp_a_upper >> 4;
+  b8:	92 95       	swap	r25
+  ba:	9f 70       	andi	r25, 0x0F	; 15
 		
 		PORTB = temp_a_upper;
-  b8:	95 b9       	out	0x05, r25	; 5
+  bc:	95 b9       	out	0x05, r25	; 5
 		PORTC = temp_a_lower;
-  ba:	88 b9       	out	0x08, r24	; 8
-  bc:	f3 cf       	rjmp	.-26     	; 0xa4 <main+0x6>
+  be:	88 b9       	out	0x08, r24	; 8
+  c0:	f1 cf       	rjmp	.-30     	; 0xa4 <main+0x6>
 
-000000be <_exit>:
-  be:	f8 94       	cli
+000000c2 <_exit>:
+  c2:	f8 94       	cli
 
-000000c0 <__stop_program>:
-  c0:	ff cf       	rjmp	.-2      	; 0xc0 <__stop_program>
+000000c4 <__stop_program>:
+  c4:	ff cf       	rjmp	.-2      	; 0xc4 <__stop_program>
