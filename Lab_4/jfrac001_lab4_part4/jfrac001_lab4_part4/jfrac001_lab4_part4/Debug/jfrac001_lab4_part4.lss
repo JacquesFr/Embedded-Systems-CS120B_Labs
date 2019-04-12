@@ -1,0 +1,643 @@
+
+jfrac001_lab4_part4.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  000003d6  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000362  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000007  00800100  00800100  000003d6  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000003d6  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000408  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000028  00000000  00000000  00000448  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000008fe  00000000  00000000  00000470  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000007de  00000000  00000000  00000d6e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000004c2  00000000  00000000  0000154c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000034  00000000  00000000  00001a10  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000047b  00000000  00000000  00001a44  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000018  00000000  00000000  00001ebf  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	4e c0       	rjmp	.+156    	; 0x9e <__ctors_end>
+   2:	00 00       	nop
+   4:	5c c0       	rjmp	.+184    	; 0xbe <__bad_interrupt>
+   6:	00 00       	nop
+   8:	5a c0       	rjmp	.+180    	; 0xbe <__bad_interrupt>
+   a:	00 00       	nop
+   c:	58 c0       	rjmp	.+176    	; 0xbe <__bad_interrupt>
+   e:	00 00       	nop
+  10:	56 c0       	rjmp	.+172    	; 0xbe <__bad_interrupt>
+  12:	00 00       	nop
+  14:	54 c0       	rjmp	.+168    	; 0xbe <__bad_interrupt>
+  16:	00 00       	nop
+  18:	52 c0       	rjmp	.+164    	; 0xbe <__bad_interrupt>
+  1a:	00 00       	nop
+  1c:	50 c0       	rjmp	.+160    	; 0xbe <__bad_interrupt>
+  1e:	00 00       	nop
+  20:	4e c0       	rjmp	.+156    	; 0xbe <__bad_interrupt>
+  22:	00 00       	nop
+  24:	4c c0       	rjmp	.+152    	; 0xbe <__bad_interrupt>
+  26:	00 00       	nop
+  28:	4a c0       	rjmp	.+148    	; 0xbe <__bad_interrupt>
+  2a:	00 00       	nop
+  2c:	48 c0       	rjmp	.+144    	; 0xbe <__bad_interrupt>
+  2e:	00 00       	nop
+  30:	46 c0       	rjmp	.+140    	; 0xbe <__bad_interrupt>
+  32:	00 00       	nop
+  34:	44 c0       	rjmp	.+136    	; 0xbe <__bad_interrupt>
+  36:	00 00       	nop
+  38:	42 c0       	rjmp	.+132    	; 0xbe <__bad_interrupt>
+  3a:	00 00       	nop
+  3c:	40 c0       	rjmp	.+128    	; 0xbe <__bad_interrupt>
+  3e:	00 00       	nop
+  40:	3e c0       	rjmp	.+124    	; 0xbe <__bad_interrupt>
+  42:	00 00       	nop
+  44:	3c c0       	rjmp	.+120    	; 0xbe <__bad_interrupt>
+  46:	00 00       	nop
+  48:	3a c0       	rjmp	.+116    	; 0xbe <__bad_interrupt>
+  4a:	00 00       	nop
+  4c:	38 c0       	rjmp	.+112    	; 0xbe <__bad_interrupt>
+  4e:	00 00       	nop
+  50:	36 c0       	rjmp	.+108    	; 0xbe <__bad_interrupt>
+  52:	00 00       	nop
+  54:	34 c0       	rjmp	.+104    	; 0xbe <__bad_interrupt>
+  56:	00 00       	nop
+  58:	32 c0       	rjmp	.+100    	; 0xbe <__bad_interrupt>
+  5a:	00 00       	nop
+  5c:	30 c0       	rjmp	.+96     	; 0xbe <__bad_interrupt>
+  5e:	00 00       	nop
+  60:	2e c0       	rjmp	.+92     	; 0xbe <__bad_interrupt>
+  62:	00 00       	nop
+  64:	2c c0       	rjmp	.+88     	; 0xbe <__bad_interrupt>
+  66:	00 00       	nop
+  68:	2a c0       	rjmp	.+84     	; 0xbe <__bad_interrupt>
+  6a:	00 00       	nop
+  6c:	28 c0       	rjmp	.+80     	; 0xbe <__bad_interrupt>
+  6e:	00 00       	nop
+  70:	26 c0       	rjmp	.+76     	; 0xbe <__bad_interrupt>
+  72:	00 00       	nop
+  74:	24 c0       	rjmp	.+72     	; 0xbe <__bad_interrupt>
+  76:	00 00       	nop
+  78:	22 c0       	rjmp	.+68     	; 0xbe <__bad_interrupt>
+  7a:	00 00       	nop
+  7c:	20 c0       	rjmp	.+64     	; 0xbe <__bad_interrupt>
+  7e:	00 00       	nop
+  80:	1e c0       	rjmp	.+60     	; 0xbe <__bad_interrupt>
+  82:	00 00       	nop
+  84:	1c c0       	rjmp	.+56     	; 0xbe <__bad_interrupt>
+  86:	00 00       	nop
+  88:	1a c0       	rjmp	.+52     	; 0xbe <__bad_interrupt>
+  8a:	00 00       	nop
+  8c:	6c 00       	.word	0x006c	; ????
+  8e:	70 00       	.word	0x0070	; ????
+  90:	8d 00       	.word	0x008d	; ????
+  92:	a2 00       	.word	0x00a2	; ????
+  94:	ce 00       	.word	0x00ce	; ????
+  96:	0e 01       	movw	r0, r28
+  98:	28 01       	movw	r4, r16
+  9a:	05 01       	movw	r0, r10
+  9c:	fc 00       	.word	0x00fc	; ????
+
+0000009e <__ctors_end>:
+  9e:	11 24       	eor	r1, r1
+  a0:	1f be       	out	0x3f, r1	; 63
+  a2:	cf ef       	ldi	r28, 0xFF	; 255
+  a4:	d0 e4       	ldi	r29, 0x40	; 64
+  a6:	de bf       	out	0x3e, r29	; 62
+  a8:	cd bf       	out	0x3d, r28	; 61
+
+000000aa <__do_clear_bss>:
+  aa:	21 e0       	ldi	r18, 0x01	; 1
+  ac:	a0 e0       	ldi	r26, 0x00	; 0
+  ae:	b1 e0       	ldi	r27, 0x01	; 1
+  b0:	01 c0       	rjmp	.+2      	; 0xb4 <.do_clear_bss_start>
+
+000000b2 <.do_clear_bss_loop>:
+  b2:	1d 92       	st	X+, r1
+
+000000b4 <.do_clear_bss_start>:
+  b4:	a7 30       	cpi	r26, 0x07	; 7
+  b6:	b2 07       	cpc	r27, r18
+  b8:	e1 f7       	brne	.-8      	; 0xb2 <.do_clear_bss_loop>
+  ba:	3d d1       	rcall	.+634    	; 0x336 <main>
+  bc:	50 c1       	rjmp	.+672    	; 0x35e <_exit>
+
+000000be <__bad_interrupt>:
+  be:	a0 cf       	rjmp	.-192    	; 0x0 <__vectors>
+
+000000c0 <tick>:
+unsigned char lockcheck = 0x00;
+
+
+void tick(){
+	
+	switch(state)	{		//State Transitions
+  c0:	e0 91 06 01 	lds	r30, 0x0106	; 0x800106 <state>
+  c4:	8e 2f       	mov	r24, r30
+  c6:	90 e0       	ldi	r25, 0x00	; 0
+  c8:	89 30       	cpi	r24, 0x09	; 9
+  ca:	91 05       	cpc	r25, r1
+  cc:	08 f0       	brcs	.+2      	; 0xd0 <tick+0x10>
+  ce:	c4 c0       	rjmp	.+392    	; 0x258 <tick+0x198>
+  d0:	fc 01       	movw	r30, r24
+  d2:	ea 5b       	subi	r30, 0xBA	; 186
+  d4:	ff 4f       	sbci	r31, 0xFF	; 255
+  d6:	3a c1       	rjmp	.+628    	; 0x34c <__tablejump2__>
+		
+		case(Init):
+			state = wait;
+  d8:	81 e0       	ldi	r24, 0x01	; 1
+  da:	80 93 06 01 	sts	0x0106, r24	; 0x800106 <state>
+		break;
+  de:	d5 c0       	rjmp	.+426    	; 0x28a <tick+0x1ca>
+		
+		case(wait):
+		
+			if((x == 0) && (y == 0) && (hash0 & 0x04)){
+  e0:	80 91 05 01 	lds	r24, 0x0105	; 0x800105 <x>
+  e4:	81 11       	cpse	r24, r1
+  e6:	0c c0       	rjmp	.+24     	; 0x100 <tick+0x40>
+  e8:	80 91 04 01 	lds	r24, 0x0104	; 0x800104 <y>
+  ec:	81 11       	cpse	r24, r1
+  ee:	08 c0       	rjmp	.+16     	; 0x100 <tick+0x40>
+  f0:	80 91 03 01 	lds	r24, 0x0103	; 0x800103 <hash0>
+  f4:	82 ff       	sbrs	r24, 2
+  f6:	04 c0       	rjmp	.+8      	; 0x100 <tick+0x40>
+				state = pound_pressed;
+  f8:	82 e0       	ldi	r24, 0x02	; 2
+  fa:	80 93 06 01 	sts	0x0106, r24	; 0x800106 <state>
+  fe:	d8 c0       	rjmp	.+432    	; 0x2b0 <tick+0x1f0>
+			}
+			
+			else if ((locking & 0x80) && (unlocking & 0x01)) {
+ 100:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <locking>
+ 104:	88 23       	and	r24, r24
+ 106:	0c f0       	brlt	.+2      	; 0x10a <tick+0x4a>
+ 108:	c0 c0       	rjmp	.+384    	; 0x28a <tick+0x1ca>
+ 10a:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <unlocking>
+ 10e:	80 ff       	sbrs	r24, 0
+ 110:	bc c0       	rjmp	.+376    	; 0x28a <tick+0x1ca>
+				state = lock_pressed;
+ 112:	85 e0       	ldi	r24, 0x05	; 5
+ 114:	80 93 06 01 	sts	0x0106, r24	; 0x800106 <state>
+ 118:	f1 c0       	rjmp	.+482    	; 0x2fc <tick+0x23c>
+			
+		break;
+		
+		case(pound_pressed):
+		
+			if((x == 0) && (y == 0) && (hash0 & 0x04)){
+ 11a:	80 91 05 01 	lds	r24, 0x0105	; 0x800105 <x>
+ 11e:	81 11       	cpse	r24, r1
+ 120:	0d c0       	rjmp	.+26     	; 0x13c <tick+0x7c>
+ 122:	80 91 04 01 	lds	r24, 0x0104	; 0x800104 <y>
+ 126:	81 11       	cpse	r24, r1
+ 128:	09 c0       	rjmp	.+18     	; 0x13c <tick+0x7c>
+ 12a:	80 91 03 01 	lds	r24, 0x0103	; 0x800103 <hash0>
+ 12e:	82 fd       	sbrc	r24, 2
+ 130:	bf c0       	rjmp	.+382    	; 0x2b0 <tick+0x1f0>
+ 132:	fb c0       	rjmp	.+502    	; 0x32a <tick+0x26a>
+				state = pound_pressed;
+			}
+			else if((x == 0) && (y == 0) && (hash0 == 0)){
+				state = pound_lift_up;
+ 134:	83 e0       	ldi	r24, 0x03	; 3
+ 136:	80 93 06 01 	sts	0x0106, r24	; 0x800106 <state>
+ 13a:	cd c0       	rjmp	.+410    	; 0x2d6 <tick+0x216>
+			}
+			
+			else{
+				state = wait;
+ 13c:	81 e0       	ldi	r24, 0x01	; 1
+ 13e:	80 93 06 01 	sts	0x0106, r24	; 0x800106 <state>
+ 142:	a3 c0       	rjmp	.+326    	; 0x28a <tick+0x1ca>
+			}
+			
+		break;
+		
+		case(pound_lift_up):
+			if((x == 0) && (y & 0x02) && (hash0 == 0) ){
+ 144:	80 91 05 01 	lds	r24, 0x0105	; 0x800105 <x>
+ 148:	81 11       	cpse	r24, r1
+ 14a:	24 c0       	rjmp	.+72     	; 0x194 <tick+0xd4>
+ 14c:	80 91 04 01 	lds	r24, 0x0104	; 0x800104 <y>
+ 150:	81 ff       	sbrs	r24, 1
+ 152:	19 c0       	rjmp	.+50     	; 0x186 <tick+0xc6>
+ 154:	80 91 03 01 	lds	r24, 0x0103	; 0x800103 <hash0>
+ 158:	81 11       	cpse	r24, r1
+ 15a:	1c c0       	rjmp	.+56     	; 0x194 <tick+0xd4>
+				state = open;
+ 15c:	94 e0       	ldi	r25, 0x04	; 4
+ 15e:	90 93 06 01 	sts	0x0106, r25	; 0x800106 <state>
+			PORTC = state;
+		break;
+		
+		case(open):
+		
+			x = PINA & 0x01;
+ 162:	80 b1       	in	r24, 0x00	; 0
+ 164:	81 70       	andi	r24, 0x01	; 1
+ 166:	80 93 05 01 	sts	0x0105, r24	; 0x800105 <x>
+			y = PINA & 0x02;
+ 16a:	80 b1       	in	r24, 0x00	; 0
+ 16c:	82 70       	andi	r24, 0x02	; 2
+ 16e:	80 93 04 01 	sts	0x0104, r24	; 0x800104 <y>
+			hash0 = PINA & 0x04;
+ 172:	80 b1       	in	r24, 0x00	; 0
+ 174:	84 70       	andi	r24, 0x04	; 4
+ 176:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <hash0>
+			locking = PINA & 0x80;
+ 17a:	80 b1       	in	r24, 0x00	; 0
+ 17c:	80 78       	andi	r24, 0x80	; 128
+ 17e:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <locking>
+			
+			PORTC = state;
+ 182:	98 b9       	out	0x08, r25	; 8
+			
+		break;
+ 184:	08 95       	ret
+		
+		case(pound_lift_up):
+			if((x == 0) && (y & 0x02) && (hash0 == 0) ){
+				state = open;
+			}
+			else if((x == 0) && (y == 0) && (hash0 == 0)){
+ 186:	81 11       	cpse	r24, r1
+ 188:	05 c0       	rjmp	.+10     	; 0x194 <tick+0xd4>
+ 18a:	80 91 03 01 	lds	r24, 0x0103	; 0x800103 <hash0>
+ 18e:	88 23       	and	r24, r24
+ 190:	09 f4       	brne	.+2      	; 0x194 <tick+0xd4>
+ 192:	a1 c0       	rjmp	.+322    	; 0x2d6 <tick+0x216>
+				state = pound_lift_up;
+			}
+			else{
+				state = wait;
+ 194:	81 e0       	ldi	r24, 0x01	; 1
+ 196:	80 93 06 01 	sts	0x0106, r24	; 0x800106 <state>
+ 19a:	77 c0       	rjmp	.+238    	; 0x28a <tick+0x1ca>
+			}
+		break;
+		
+		case(open):
+		
+			if(lockcheck == 0){
+ 19c:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <_edata>
+ 1a0:	81 11       	cpse	r24, r1
+ 1a2:	15 c0       	rjmp	.+42     	; 0x1ce <tick+0x10e>
+				state = unlock;
+ 1a4:	97 e0       	ldi	r25, 0x07	; 7
+ 1a6:	90 93 06 01 	sts	0x0106, r25	; 0x800106 <state>
+			PORTC = state;
+			
+		break;
+		
+		case(unlock):
+			x = PINA & 0x01;
+ 1aa:	80 b1       	in	r24, 0x00	; 0
+ 1ac:	81 70       	andi	r24, 0x01	; 1
+ 1ae:	80 93 05 01 	sts	0x0105, r24	; 0x800105 <x>
+			y = PINA & 0x02;
+ 1b2:	80 b1       	in	r24, 0x00	; 0
+ 1b4:	82 70       	andi	r24, 0x02	; 2
+ 1b6:	80 93 04 01 	sts	0x0104, r24	; 0x800104 <y>
+			hash0 = PINA & 0x04;
+ 1ba:	80 b1       	in	r24, 0x00	; 0
+ 1bc:	84 70       	andi	r24, 0x04	; 4
+ 1be:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <hash0>
+			locking = PINA & 0x80;
+ 1c2:	80 b1       	in	r24, 0x00	; 0
+ 1c4:	80 78       	andi	r24, 0x80	; 128
+ 1c6:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <locking>
+			
+			PORTC = state;
+ 1ca:	98 b9       	out	0x08, r25	; 8
+			
+		break;
+ 1cc:	08 95       	ret
+			if(lockcheck == 0){
+				state = unlock;
+			}
+			
+			else{
+				state = lock;	
+ 1ce:	98 e0       	ldi	r25, 0x08	; 8
+ 1d0:	90 93 06 01 	sts	0x0106, r25	; 0x800106 <state>
+			
+		break;
+		
+		case(lock):
+			
+			x = PINA & 0x01;
+ 1d4:	80 b1       	in	r24, 0x00	; 0
+ 1d6:	81 70       	andi	r24, 0x01	; 1
+ 1d8:	80 93 05 01 	sts	0x0105, r24	; 0x800105 <x>
+			y = PINA & 0x02;
+ 1dc:	80 b1       	in	r24, 0x00	; 0
+ 1de:	82 70       	andi	r24, 0x02	; 2
+ 1e0:	80 93 04 01 	sts	0x0104, r24	; 0x800104 <y>
+			hash0 = PINA & 0x04;
+ 1e4:	80 b1       	in	r24, 0x00	; 0
+ 1e6:	84 70       	andi	r24, 0x04	; 4
+ 1e8:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <hash0>
+			locking = PINA & 0x80;
+ 1ec:	80 b1       	in	r24, 0x00	; 0
+ 1ee:	80 78       	andi	r24, 0x80	; 128
+ 1f0:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <locking>
+			
+			PORTC = state;
+ 1f4:	98 b9       	out	0x08, r25	; 8
+			
+		break;
+ 1f6:	08 95       	ret
+			}
+			
+		break;
+		
+		case(lock):	
+			lockcheck = 0x00;
+ 1f8:	10 92 00 01 	sts	0x0100, r1	; 0x800100 <_edata>
+			unlocking = 0x00;
+ 1fc:	10 92 01 01 	sts	0x0101, r1	; 0x800101 <unlocking>
+			PORTB = unlocking;
+ 200:	15 b8       	out	0x05, r1	; 5
+			state = wait;
+ 202:	81 e0       	ldi	r24, 0x01	; 1
+ 204:	80 93 06 01 	sts	0x0106, r24	; 0x800106 <state>
+		break;
+ 208:	40 c0       	rjmp	.+128    	; 0x28a <tick+0x1ca>
+		
+		case(unlock):
+			lockcheck = 0x01;
+ 20a:	81 e0       	ldi	r24, 0x01	; 1
+ 20c:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <_edata>
+			unlocking = 0x01;
+ 210:	80 93 01 01 	sts	0x0101, r24	; 0x800101 <unlocking>
+			PORTB = unlocking;
+ 214:	85 b9       	out	0x05, r24	; 5
+			state = wait;
+ 216:	80 93 06 01 	sts	0x0106, r24	; 0x800106 <state>
+		break;
+ 21a:	37 c0       	rjmp	.+110    	; 0x28a <tick+0x1ca>
+		
+		case(lock_pressed):
+			if(locking & 0x80){
+ 21c:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <locking>
+ 220:	88 23       	and	r24, r24
+ 222:	0c f4       	brge	.+2      	; 0x226 <tick+0x166>
+ 224:	6b c0       	rjmp	.+214    	; 0x2fc <tick+0x23c>
+				state = lock_pressed;
+			}
+			else{
+				state = lock_lift_up;
+ 226:	96 e0       	ldi	r25, 0x06	; 6
+ 228:	90 93 06 01 	sts	0x0106, r25	; 0x800106 <state>
+			
+			PORTC = state;
+		break;
+		
+		case(lock_lift_up):
+			x = PINA & 0x01;
+ 22c:	80 b1       	in	r24, 0x00	; 0
+ 22e:	81 70       	andi	r24, 0x01	; 1
+ 230:	80 93 05 01 	sts	0x0105, r24	; 0x800105 <x>
+			y = PINA & 0x02;
+ 234:	80 b1       	in	r24, 0x00	; 0
+ 236:	82 70       	andi	r24, 0x02	; 2
+ 238:	80 93 04 01 	sts	0x0104, r24	; 0x800104 <y>
+			hash0 = PINA & 0x04;
+ 23c:	80 b1       	in	r24, 0x00	; 0
+ 23e:	84 70       	andi	r24, 0x04	; 4
+ 240:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <hash0>
+			locking = PINA & 0x80;
+ 244:	80 b1       	in	r24, 0x00	; 0
+ 246:	80 78       	andi	r24, 0x80	; 128
+ 248:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <locking>
+			
+			PORTC = state;
+ 24c:	98 b9       	out	0x08, r25	; 8
+		break;
+ 24e:	08 95       	ret
+				state = lock_lift_up;
+			}
+		break;
+		
+		case(lock_lift_up):
+			state = wait;
+ 250:	81 e0       	ldi	r24, 0x01	; 1
+ 252:	80 93 06 01 	sts	0x0106, r24	; 0x800106 <state>
+		break;
+ 256:	19 c0       	rjmp	.+50     	; 0x28a <tick+0x1ca>
+		
+		default:
+			state = Init;
+ 258:	10 92 06 01 	sts	0x0106, r1	; 0x800106 <state>
+		break;
+	}
+	
+	switch(state){		//State Actions
+		case(Init):
+			x = PINA & 0x01;
+ 25c:	80 b1       	in	r24, 0x00	; 0
+ 25e:	81 70       	andi	r24, 0x01	; 1
+ 260:	80 93 05 01 	sts	0x0105, r24	; 0x800105 <x>
+			y = PINA & 0x02;
+ 264:	80 b1       	in	r24, 0x00	; 0
+ 266:	82 70       	andi	r24, 0x02	; 2
+ 268:	80 93 04 01 	sts	0x0104, r24	; 0x800104 <y>
+			hash0 = PINA & 0x04;
+ 26c:	80 b1       	in	r24, 0x00	; 0
+ 26e:	84 70       	andi	r24, 0x04	; 4
+ 270:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <hash0>
+			locking = PINA & 0x80;
+ 274:	80 b1       	in	r24, 0x00	; 0
+ 276:	80 78       	andi	r24, 0x80	; 128
+ 278:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <locking>
+			
+			unlocking = 0x00;
+ 27c:	10 92 01 01 	sts	0x0101, r1	; 0x800101 <unlocking>
+			PORTB = unlocking;
+ 280:	15 b8       	out	0x05, r1	; 5
+			PORTC = state;
+ 282:	80 91 06 01 	lds	r24, 0x0106	; 0x800106 <state>
+ 286:	88 b9       	out	0x08, r24	; 8
+		
+		default:
+			state = Init;
+		break;
+	}
+}
+ 288:	08 95       	ret
+			PORTB = unlocking;
+			PORTC = state;
+		break;
+		
+		case(wait):
+			x = PINA & 0x01;
+ 28a:	80 b1       	in	r24, 0x00	; 0
+ 28c:	81 70       	andi	r24, 0x01	; 1
+ 28e:	80 93 05 01 	sts	0x0105, r24	; 0x800105 <x>
+			y = PINA & 0x02;
+ 292:	80 b1       	in	r24, 0x00	; 0
+ 294:	82 70       	andi	r24, 0x02	; 2
+ 296:	80 93 04 01 	sts	0x0104, r24	; 0x800104 <y>
+			hash0 = PINA & 0x04;
+ 29a:	80 b1       	in	r24, 0x00	; 0
+ 29c:	84 70       	andi	r24, 0x04	; 4
+ 29e:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <hash0>
+			locking = PINA & 0x80;
+ 2a2:	80 b1       	in	r24, 0x00	; 0
+ 2a4:	80 78       	andi	r24, 0x80	; 128
+ 2a6:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <locking>
+			
+			PORTC = state;
+ 2aa:	81 e0       	ldi	r24, 0x01	; 1
+ 2ac:	88 b9       	out	0x08, r24	; 8
+		break;
+ 2ae:	08 95       	ret
+		
+		case(pound_pressed):
+			x = PINA & 0x01;
+ 2b0:	80 b1       	in	r24, 0x00	; 0
+ 2b2:	81 70       	andi	r24, 0x01	; 1
+ 2b4:	80 93 05 01 	sts	0x0105, r24	; 0x800105 <x>
+			y = PINA & 0x02;
+ 2b8:	80 b1       	in	r24, 0x00	; 0
+ 2ba:	82 70       	andi	r24, 0x02	; 2
+ 2bc:	80 93 04 01 	sts	0x0104, r24	; 0x800104 <y>
+			hash0 = PINA & 0x04;
+ 2c0:	80 b1       	in	r24, 0x00	; 0
+ 2c2:	84 70       	andi	r24, 0x04	; 4
+ 2c4:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <hash0>
+			locking = PINA & 0x80;
+ 2c8:	80 b1       	in	r24, 0x00	; 0
+ 2ca:	80 78       	andi	r24, 0x80	; 128
+ 2cc:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <locking>
+			
+			PORTC = state;
+ 2d0:	82 e0       	ldi	r24, 0x02	; 2
+ 2d2:	88 b9       	out	0x08, r24	; 8
+		break;
+ 2d4:	08 95       	ret
+		
+		case(pound_lift_up):
+			x = PINA & 0x01;
+ 2d6:	80 b1       	in	r24, 0x00	; 0
+ 2d8:	81 70       	andi	r24, 0x01	; 1
+ 2da:	80 93 05 01 	sts	0x0105, r24	; 0x800105 <x>
+			y = PINA & 0x02;
+ 2de:	80 b1       	in	r24, 0x00	; 0
+ 2e0:	82 70       	andi	r24, 0x02	; 2
+ 2e2:	80 93 04 01 	sts	0x0104, r24	; 0x800104 <y>
+			hash0 = PINA & 0x04;
+ 2e6:	80 b1       	in	r24, 0x00	; 0
+ 2e8:	84 70       	andi	r24, 0x04	; 4
+ 2ea:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <hash0>
+			locking = PINA & 0x80;
+ 2ee:	80 b1       	in	r24, 0x00	; 0
+ 2f0:	80 78       	andi	r24, 0x80	; 128
+ 2f2:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <locking>
+			
+			PORTC = state;
+ 2f6:	83 e0       	ldi	r24, 0x03	; 3
+ 2f8:	88 b9       	out	0x08, r24	; 8
+		break;
+ 2fa:	08 95       	ret
+			PORTC = state;
+			
+		break;
+		
+		case(lock_pressed):
+			unlocking = 0x00;
+ 2fc:	10 92 01 01 	sts	0x0101, r1	; 0x800101 <unlocking>
+			PORTB = unlocking;
+ 300:	15 b8       	out	0x05, r1	; 5
+			
+			x = PINA & 0x01;
+ 302:	80 b1       	in	r24, 0x00	; 0
+ 304:	81 70       	andi	r24, 0x01	; 1
+ 306:	80 93 05 01 	sts	0x0105, r24	; 0x800105 <x>
+			y = PINA & 0x02;
+ 30a:	80 b1       	in	r24, 0x00	; 0
+ 30c:	82 70       	andi	r24, 0x02	; 2
+ 30e:	80 93 04 01 	sts	0x0104, r24	; 0x800104 <y>
+			hash0 = PINA & 0x04;
+ 312:	80 b1       	in	r24, 0x00	; 0
+ 314:	84 70       	andi	r24, 0x04	; 4
+ 316:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <hash0>
+			locking = PINA & 0x80;
+ 31a:	80 b1       	in	r24, 0x00	; 0
+ 31c:	80 78       	andi	r24, 0x80	; 128
+ 31e:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <locking>
+			
+			PORTC = state;
+ 322:	80 91 06 01 	lds	r24, 0x0106	; 0x800106 <state>
+ 326:	88 b9       	out	0x08, r24	; 8
+		break;
+ 328:	08 95       	ret
+		case(pound_pressed):
+		
+			if((x == 0) && (y == 0) && (hash0 & 0x04)){
+				state = pound_pressed;
+			}
+			else if((x == 0) && (y == 0) && (hash0 == 0)){
+ 32a:	80 91 03 01 	lds	r24, 0x0103	; 0x800103 <hash0>
+ 32e:	88 23       	and	r24, r24
+ 330:	09 f4       	brne	.+2      	; 0x334 <tick+0x274>
+ 332:	00 cf       	rjmp	.-512    	; 0x134 <tick+0x74>
+ 334:	03 cf       	rjmp	.-506    	; 0x13c <tick+0x7c>
+
+00000336 <main>:
+}
+
+
+int main(void)
+{
+	DDRA = 0x00; PINA = 0xFF;
+ 336:	11 b8       	out	0x01, r1	; 1
+ 338:	8f ef       	ldi	r24, 0xFF	; 255
+ 33a:	80 b9       	out	0x00, r24	; 0
+	DDRB = 0xFF; PINB = 0x00;
+ 33c:	84 b9       	out	0x04, r24	; 4
+ 33e:	13 b8       	out	0x03, r1	; 3
+	DDRC = 0xFF; PINC = 0x00;
+ 340:	87 b9       	out	0x07, r24	; 7
+ 342:	16 b8       	out	0x06, r1	; 6
+
+	state = Init;
+ 344:	10 92 06 01 	sts	0x0106, r1	; 0x800106 <state>
+	
+	while (1)
+	{
+		tick();
+ 348:	bb de       	rcall	.-650    	; 0xc0 <tick>
+ 34a:	fe cf       	rjmp	.-4      	; 0x348 <main+0x12>
+
+0000034c <__tablejump2__>:
+ 34c:	ee 0f       	add	r30, r30
+ 34e:	ff 1f       	adc	r31, r31
+ 350:	00 24       	eor	r0, r0
+ 352:	00 1c       	adc	r0, r0
+ 354:	0b be       	out	0x3b, r0	; 59
+ 356:	07 90       	elpm	r0, Z+
+ 358:	f6 91       	elpm	r31, Z
+ 35a:	e0 2d       	mov	r30, r0
+ 35c:	09 94       	ijmp
+
+0000035e <_exit>:
+ 35e:	f8 94       	cli
+
+00000360 <__stop_program>:
+ 360:	ff cf       	rjmp	.-2      	; 0x360 <__stop_program>
