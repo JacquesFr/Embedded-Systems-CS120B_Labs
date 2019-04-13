@@ -57,7 +57,7 @@ void tick(){
 		
 		case(pound_lift_up):
 			if(count == 0){
-				if((x & 0x01) && (y == 0) && (hash0 == 0){
+				if((x & 0x01) && (y == 0) && (hash0 == 0)){
 					state = open;
 				}
 			}
@@ -70,24 +70,30 @@ void tick(){
 			
 			else if(count & 0x02){
 				if((x & 0x01) && (y == 0) && (hash0 == 0)){
-					
+					state = open;
 				}
 			}
 			
 			else{
-				
+				state = wait;				
 			}
 			
 		break;
 		
 		case(open):
 		
-			if(lockcheck == 0){
-				state = unlock;
+			if(count < 3){
+				state = pound_lift_up;
 			}
-			
+		
 			else{
-				state = lock;	
+				if(lockcheck == 0){
+					state = unlock;
+				}
+				
+				else{
+					state = lock;
+				}
 			}
 			
 		break;
@@ -141,7 +147,7 @@ void tick(){
 			y = PINA & 0x02;
 			hash0 = PINA & 0x04;
 			locking = PINA & 0x80;
-			
+			count = 0x00;
 			PORTC = state;
 		break;
 		
@@ -169,7 +175,7 @@ void tick(){
 			y = PINA & 0x02;
 			hash0 = PINA & 0x04;
 			locking = PINA & 0x80;
-			
+			count++;
 			PORTC = state;
 			
 		break;
