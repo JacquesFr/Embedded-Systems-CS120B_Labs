@@ -66,16 +66,34 @@ void tick(){
 				if((x == 0) && (y & 0x02) && (hash0 == 0)){
 					state = open;
 				}
+				else if((x & 0x01) && (y == 0) && (hash0 == 0)){
+					state = pound_lift_up;
+				}
+				else{
+					state = wait;
+				}
 			}
 			
 			else if(count & 0x02){
 				if((x & 0x01) && (y == 0) && (hash0 == 0)){
 					state = open;
 				}
+				else if((x == 0) && (y & 0x02) && (hash0 == 0)){
+					state = pound_lift_up;
+				}
+				else{
+					state = wait;
+				}
 			}
 			
 			else{
-				state = wait;				
+				if((x & 0x01) && (y == 0) && (hash0 == 0)){
+					state = pound_lift_up;
+				}
+				else{
+					state = wait;
+								
+				}
 			}
 			
 		break;
