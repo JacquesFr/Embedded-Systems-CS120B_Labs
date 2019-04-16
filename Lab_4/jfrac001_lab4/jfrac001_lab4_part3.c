@@ -1,20 +1,17 @@
 /*
  * Jacques Fracchia
  * jfrac001@ucr.edu
- * Lab 4 part 5 challenge 2
+ * Lab 4 part 3
  */ 
 
 #include <avr/io.h>
 
-enum state {Init, wait, pound_pressed, pound_lift_up, open, lock_pressed, lock_lift_up, unlock, lock} state;
+enum state {Init, wait, pound_pressed, pound_lift_up, open, lock_pressed, lock_lift_up} state;
 unsigned char x = 0x00;
 unsigned char y = 0x00;
 unsigned char hash0 = 0x00;
 unsigned char locking = 0x00;
 unsigned char unlocking = 0x00;
-unsigned char lockcheck = 0x00;
-unsigned char count = 0x00;
-
 
 void tick(){
 	
@@ -56,78 +53,24 @@ void tick(){
 		break;
 		
 		case(pound_lift_up):
-			if(count == 0){
-				if((x & 0x01) && (y == 0) && (hash0 == 0)){
-					state = open;
-				}
+			if((x == 0) && (y & 0x02) && (hash0 == 0) ){
+				state = open;
 			}
-			
-			else if(count & 0x01){
-				if((x == 0) && (y & 0x02) && (hash0 == 0)){
-					state = open;
-				}
-				else if((x & 0x01) && (y == 0) && (hash0 == 0)){
-					state = pound_lift_up;
-				}
-				else{
-					state = wait;
-				}
+			else if((x == 0) && (y == 0) && (hash0 == 0)){
+				state = pound_lift_up;
 			}
-			
-			else if(count & 0x02){
-				if((x & 0x01) && (y == 0) && (hash0 == 0)){
-					state = open;
-				}
-				else if((x == 0) && (y & 0x02) && (hash0 == 0)){
-					state = pound_lift_up;
-				}
-				else{
-					state = wait;
-				}
-			}
-			
 			else{
-				if((x & 0x01) && (y == 0) && (hash0 == 0)){
-					state = pound_lift_up;
-				}
-				else{
-					state = wait;
-								
-				}
+				state = wait;
 			}
-			
 		break;
 		
 		case(open):
-		
-			if(count < 3){
-				state = pound_lift_up;
+			if((x == 0) && (y & 0x02) && (hash0 == 0)){
+				state = open;
 			}
-		
 			else{
-				if(lockcheck == 0){
-					state = unlock;
-				}
-				
-				else{
-					state = lock;
-				}
+				state = wait;
 			}
-			
-		break;
-		
-		case(lock):	
-			lockcheck = 0x00;
-			unlocking = 0x00;
-			PORTB = unlocking;
-			state = wait;
-		break;
-		
-		case(unlock):
-			lockcheck = 0x01;
-			unlocking = 0x01;
-			PORTB = unlocking;
-			state = wait;
 		break;
 		
 		case(lock_pressed):
@@ -165,7 +108,7 @@ void tick(){
 			y = PINA & 0x02;
 			hash0 = PINA & 0x04;
 			locking = PINA & 0x80;
-			count = 0x00;
+			
 			PORTC = state;
 		break;
 		
@@ -188,17 +131,8 @@ void tick(){
 		break;
 		
 		case(open):
-		
-			x = PINA & 0x01;
-			y = PINA & 0x02;
-			hash0 = PINA & 0x04;
-			locking = PINA & 0x80;
-			count++;
-			PORTC = state;
-			
-		break;
-		
-		case(lock):
+			unlocking = 0x01;
+			PORTB = unlocking;
 			
 			x = PINA & 0x01;
 			y = PINA & 0x02;
@@ -206,17 +140,6 @@ void tick(){
 			locking = PINA & 0x80;
 			
 			PORTC = state;
-			
-		break;
-		
-		case(unlock):
-			x = PINA & 0x01;
-			y = PINA & 0x02;
-			hash0 = PINA & 0x04;
-			locking = PINA & 0x80;
-			
-			PORTC = state;
-			
 		break;
 		
 		case(lock_pressed):
@@ -260,3 +183,5 @@ int main(void)
 		tick();
 	}
 }
+
+

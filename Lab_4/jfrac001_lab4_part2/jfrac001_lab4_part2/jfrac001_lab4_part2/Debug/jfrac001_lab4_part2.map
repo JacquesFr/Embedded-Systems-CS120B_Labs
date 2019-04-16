@@ -447,11 +447,11 @@ END GROUP
  *(.debug_frame)
  .debug_frame   0x00000000       0x34 main.o
 
-.debug_str      0x00000000      0x476
+.debug_str      0x00000000      0x462
  *(.debug_str)
  .debug_str     0x00000000      0x296 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega1284/avr51/crtatmega1284.o
- .debug_str     0x00000296      0x1e0 main.o
-                                0x214 (size before relaxing)
+ .debug_str     0x00000296      0x1cc main.o
+                                0x200 (size before relaxing)
 
 .debug_loc
  *(.debug_loc)

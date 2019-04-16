@@ -1,7 +1,7 @@
 /*
  * Jacques Fracchia
  * jfrac001@ucr.edu
- * Lab 4 part 5 challenge 2
+ * Lab 4 part 4 challenge 1
  */ 
 
 #include <avr/io.h>
@@ -13,7 +13,6 @@ unsigned char hash0 = 0x00;
 unsigned char locking = 0x00;
 unsigned char unlocking = 0x00;
 unsigned char lockcheck = 0x00;
-unsigned char count = 0x00;
 
 
 void tick(){
@@ -56,62 +55,25 @@ void tick(){
 		break;
 		
 		case(pound_lift_up):
-			if(count == 0){
-				if((x & 0x01) && (y == 0) && (hash0 == 0)){
-					state = open;
-				}
+			if((x == 0) && (y & 0x02) && (hash0 == 0) ){
+				state = open;
 			}
-			
-			else if(count & 0x01){
-				if((x == 0) && (y & 0x02) && (hash0 == 0)){
-					state = open;
-				}
-				else if((x & 0x01) && (y == 0) && (hash0 == 0)){
-					state = pound_lift_up;
-				}
-				else{
-					state = wait;
-				}
+			else if((x == 0) && (y == 0) && (hash0 == 0)){
+				state = pound_lift_up;
 			}
-			
-			else if(count & 0x02){
-				if((x & 0x01) && (y == 0) && (hash0 == 0)){
-					state = open;
-				}
-				else if((x == 0) && (y & 0x02) && (hash0 == 0)){
-					state = pound_lift_up;
-				}
-				else{
-					state = wait;
-				}
-			}
-			
 			else{
-				if((x & 0x01) && (y == 0) && (hash0 == 0)){
-					state = pound_lift_up;
-				}
-				else{
-					state = wait;
-								
-				}
+				state = wait;
 			}
-			
 		break;
 		
 		case(open):
 		
-			if(count < 3){
-				state = pound_lift_up;
+			if(lockcheck == 0){
+				state = unlock;
 			}
-		
+			
 			else{
-				if(lockcheck == 0){
-					state = unlock;
-				}
-				
-				else{
-					state = lock;
-				}
+				state = lock;	
 			}
 			
 		break;
@@ -165,7 +127,7 @@ void tick(){
 			y = PINA & 0x02;
 			hash0 = PINA & 0x04;
 			locking = PINA & 0x80;
-			count = 0x00;
+			
 			PORTC = state;
 		break;
 		
@@ -193,7 +155,7 @@ void tick(){
 			y = PINA & 0x02;
 			hash0 = PINA & 0x04;
 			locking = PINA & 0x80;
-			count++;
+			
 			PORTC = state;
 			
 		break;

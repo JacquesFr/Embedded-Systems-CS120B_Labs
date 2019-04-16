@@ -1,7 +1,7 @@
 /*
  * Jacques Fracchia
  * jfrac001@ucr.edu
- * Lab 3 part 2
+ * Lab 5 part 1
  */ 
 
 #include <avr/io.h>
@@ -54,4 +54,5 @@ int main(void)
 		PORTB = lights;
 	}
 }
+
 
