@@ -4,6 +4,7 @@
  * Lab 5 part 1
  */ 
 
+
 #include <avr/io.h>
 
 
@@ -22,6 +23,7 @@ int main(void)
 		lights = 0x00;
 		
 		fuel = PINA & 0x0F; // Mask PINA to only get the bit you are interested in
+	
 		
 		if (fuel == 1 || fuel == 2 ){
 			lights = 0x60;
@@ -48,7 +50,7 @@ int main(void)
 		}
 		
 		else{
-			lights = 0x00;
+			lights = 0x40;
 		}
 		
 		PORTB = lights;

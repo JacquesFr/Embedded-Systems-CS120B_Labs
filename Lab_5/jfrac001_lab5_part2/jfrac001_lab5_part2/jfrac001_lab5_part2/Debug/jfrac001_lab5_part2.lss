@@ -1,0 +1,402 @@
+
+jfrac001_lab5_part2.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000002  00800100  00000208  0000029c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000208  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000002  00800102  00800102  0000029e  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  0000029e  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000002d0  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000028  00000000  00000000  00000310  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000008d2  00000000  00000000  00000338  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000007d6  00000000  00000000  00000c0a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000321  00000000  00000000  000013e0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000034  00000000  00000000  00001704  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000046f  00000000  00000000  00001738  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000018  00000000  00000000  00001ba7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	4c c0       	rjmp	.+152    	; 0x9a <__ctors_end>
+   2:	00 00       	nop
+   4:	67 c0       	rjmp	.+206    	; 0xd4 <__bad_interrupt>
+   6:	00 00       	nop
+   8:	65 c0       	rjmp	.+202    	; 0xd4 <__bad_interrupt>
+   a:	00 00       	nop
+   c:	63 c0       	rjmp	.+198    	; 0xd4 <__bad_interrupt>
+   e:	00 00       	nop
+  10:	61 c0       	rjmp	.+194    	; 0xd4 <__bad_interrupt>
+  12:	00 00       	nop
+  14:	5f c0       	rjmp	.+190    	; 0xd4 <__bad_interrupt>
+  16:	00 00       	nop
+  18:	5d c0       	rjmp	.+186    	; 0xd4 <__bad_interrupt>
+  1a:	00 00       	nop
+  1c:	5b c0       	rjmp	.+182    	; 0xd4 <__bad_interrupt>
+  1e:	00 00       	nop
+  20:	59 c0       	rjmp	.+178    	; 0xd4 <__bad_interrupt>
+  22:	00 00       	nop
+  24:	57 c0       	rjmp	.+174    	; 0xd4 <__bad_interrupt>
+  26:	00 00       	nop
+  28:	55 c0       	rjmp	.+170    	; 0xd4 <__bad_interrupt>
+  2a:	00 00       	nop
+  2c:	53 c0       	rjmp	.+166    	; 0xd4 <__bad_interrupt>
+  2e:	00 00       	nop
+  30:	51 c0       	rjmp	.+162    	; 0xd4 <__bad_interrupt>
+  32:	00 00       	nop
+  34:	4f c0       	rjmp	.+158    	; 0xd4 <__bad_interrupt>
+  36:	00 00       	nop
+  38:	4d c0       	rjmp	.+154    	; 0xd4 <__bad_interrupt>
+  3a:	00 00       	nop
+  3c:	4b c0       	rjmp	.+150    	; 0xd4 <__bad_interrupt>
+  3e:	00 00       	nop
+  40:	49 c0       	rjmp	.+146    	; 0xd4 <__bad_interrupt>
+  42:	00 00       	nop
+  44:	47 c0       	rjmp	.+142    	; 0xd4 <__bad_interrupt>
+  46:	00 00       	nop
+  48:	45 c0       	rjmp	.+138    	; 0xd4 <__bad_interrupt>
+  4a:	00 00       	nop
+  4c:	43 c0       	rjmp	.+134    	; 0xd4 <__bad_interrupt>
+  4e:	00 00       	nop
+  50:	41 c0       	rjmp	.+130    	; 0xd4 <__bad_interrupt>
+  52:	00 00       	nop
+  54:	3f c0       	rjmp	.+126    	; 0xd4 <__bad_interrupt>
+  56:	00 00       	nop
+  58:	3d c0       	rjmp	.+122    	; 0xd4 <__bad_interrupt>
+  5a:	00 00       	nop
+  5c:	3b c0       	rjmp	.+118    	; 0xd4 <__bad_interrupt>
+  5e:	00 00       	nop
+  60:	39 c0       	rjmp	.+114    	; 0xd4 <__bad_interrupt>
+  62:	00 00       	nop
+  64:	37 c0       	rjmp	.+110    	; 0xd4 <__bad_interrupt>
+  66:	00 00       	nop
+  68:	35 c0       	rjmp	.+106    	; 0xd4 <__bad_interrupt>
+  6a:	00 00       	nop
+  6c:	33 c0       	rjmp	.+102    	; 0xd4 <__bad_interrupt>
+  6e:	00 00       	nop
+  70:	31 c0       	rjmp	.+98     	; 0xd4 <__bad_interrupt>
+  72:	00 00       	nop
+  74:	2f c0       	rjmp	.+94     	; 0xd4 <__bad_interrupt>
+  76:	00 00       	nop
+  78:	2d c0       	rjmp	.+90     	; 0xd4 <__bad_interrupt>
+  7a:	00 00       	nop
+  7c:	2b c0       	rjmp	.+86     	; 0xd4 <__bad_interrupt>
+  7e:	00 00       	nop
+  80:	29 c0       	rjmp	.+82     	; 0xd4 <__bad_interrupt>
+  82:	00 00       	nop
+  84:	27 c0       	rjmp	.+78     	; 0xd4 <__bad_interrupt>
+  86:	00 00       	nop
+  88:	25 c0       	rjmp	.+74     	; 0xd4 <__bad_interrupt>
+  8a:	00 00       	nop
+  8c:	77 00       	.word	0x0077	; ????
+  8e:	7e 00       	.word	0x007e	; ????
+  90:	98 00       	.word	0x0098	; ????
+  92:	bf 00       	.word	0x00bf	; ????
+  94:	a6 00       	.word	0x00a6	; ????
+  96:	cd 00       	.word	0x00cd	; ????
+  98:	e6 00       	.word	0x00e6	; ????
+
+0000009a <__ctors_end>:
+  9a:	11 24       	eor	r1, r1
+  9c:	1f be       	out	0x3f, r1	; 63
+  9e:	cf ef       	ldi	r28, 0xFF	; 255
+  a0:	d0 e4       	ldi	r29, 0x40	; 64
+  a2:	de bf       	out	0x3e, r29	; 62
+  a4:	cd bf       	out	0x3d, r28	; 61
+
+000000a6 <__do_copy_data>:
+  a6:	11 e0       	ldi	r17, 0x01	; 1
+  a8:	a0 e0       	ldi	r26, 0x00	; 0
+  aa:	b1 e0       	ldi	r27, 0x01	; 1
+  ac:	e8 e0       	ldi	r30, 0x08	; 8
+  ae:	f2 e0       	ldi	r31, 0x02	; 2
+  b0:	00 e0       	ldi	r16, 0x00	; 0
+  b2:	0b bf       	out	0x3b, r16	; 59
+  b4:	02 c0       	rjmp	.+4      	; 0xba <__do_copy_data+0x14>
+  b6:	07 90       	elpm	r0, Z+
+  b8:	0d 92       	st	X+, r0
+  ba:	a2 30       	cpi	r26, 0x02	; 2
+  bc:	b1 07       	cpc	r27, r17
+  be:	d9 f7       	brne	.-10     	; 0xb6 <__do_copy_data+0x10>
+
+000000c0 <__do_clear_bss>:
+  c0:	21 e0       	ldi	r18, 0x01	; 1
+  c2:	a2 e0       	ldi	r26, 0x02	; 2
+  c4:	b1 e0       	ldi	r27, 0x01	; 1
+  c6:	01 c0       	rjmp	.+2      	; 0xca <.do_clear_bss_start>
+
+000000c8 <.do_clear_bss_loop>:
+  c8:	1d 92       	st	X+, r1
+
+000000ca <.do_clear_bss_start>:
+  ca:	a4 30       	cpi	r26, 0x04	; 4
+  cc:	b2 07       	cpc	r27, r18
+  ce:	e1 f7       	brne	.-8      	; 0xc8 <.do_clear_bss_loop>
+  d0:	87 d0       	rcall	.+270    	; 0x1e0 <main>
+  d2:	98 c0       	rjmp	.+304    	; 0x204 <_exit>
+
+000000d4 <__bad_interrupt>:
+  d4:	95 cf       	rjmp	.-214    	; 0x0 <__vectors>
+
+000000d6 <tick>:
+void tick(){
+	//Local Variables
+	
+	
+	
+	switch(state)	{		//State Transitions
+  d6:	e0 91 03 01 	lds	r30, 0x0103	; 0x800103 <state>
+  da:	8e 2f       	mov	r24, r30
+  dc:	90 e0       	ldi	r25, 0x00	; 0
+  de:	87 30       	cpi	r24, 0x07	; 7
+  e0:	91 05       	cpc	r25, r1
+  e2:	08 f0       	brcs	.+2      	; 0xe6 <tick+0x10>
+  e4:	7a c0       	rjmp	.+244    	; 0x1da <tick+0x104>
+  e6:	fc 01       	movw	r30, r24
+  e8:	ea 5b       	subi	r30, 0xBA	; 186
+  ea:	ff 4f       	sbci	r31, 0xFF	; 255
+  ec:	82 c0       	rjmp	.+260    	; 0x1f2 <__tablejump2__>
+		
+		case(Init):
+		state = wait;
+  ee:	81 e0       	ldi	r24, 0x01	; 1
+  f0:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <state>
+		count = 0x00;
+  f4:	10 92 02 01 	sts	0x0102, r1	; 0x800102 <__data_end>
+		PORTC = count;
+  f8:	18 b8       	out	0x08, r1	; 8
+		break;
+  fa:	08 95       	ret
+		
+		case(wait):
+		
+			if(PINA == 0x00){
+  fc:	80 b1       	in	r24, 0x00	; 0
+  fe:	88 23       	and	r24, r24
+ 100:	09 f4       	brne	.+2      	; 0x104 <tick+0x2e>
+ 102:	6d c0       	rjmp	.+218    	; 0x1de <tick+0x108>
+				state = wait;
+			}
+			
+			else if(PINA == add_button){
+ 104:	90 b1       	in	r25, 0x00	; 0
+ 106:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <add_button>
+ 10a:	98 13       	cpse	r25, r24
+ 10c:	04 c0       	rjmp	.+8      	; 0x116 <tick+0x40>
+				state = add_pressed;
+ 10e:	82 e0       	ldi	r24, 0x02	; 2
+ 110:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <state>
+ 114:	08 95       	ret
+			}
+			
+			else if(PINA == sub_button){
+ 116:	90 b1       	in	r25, 0x00	; 0
+ 118:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
+ 11c:	98 13       	cpse	r25, r24
+ 11e:	04 c0       	rjmp	.+8      	; 0x128 <tick+0x52>
+				state = sub_pressed;
+ 120:	83 e0       	ldi	r24, 0x03	; 3
+ 122:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <state>
+ 126:	08 95       	ret
+			}
+			
+			else{
+				state = reset;
+ 128:	86 e0       	ldi	r24, 0x06	; 6
+ 12a:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <state>
+ 12e:	08 95       	ret
+			}
+		
+		break;
+		
+		case(add_pressed):
+			if(count < 9){
+ 130:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <__data_end>
+ 134:	89 30       	cpi	r24, 0x09	; 9
+ 136:	28 f4       	brcc	.+10     	; 0x142 <tick+0x6c>
+				count = count + 1;
+ 138:	8f 5f       	subi	r24, 0xFF	; 255
+ 13a:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <__data_end>
+				PORTB = count;
+ 13e:	85 b9       	out	0x05, r24	; 5
+ 140:	01 c0       	rjmp	.+2      	; 0x144 <tick+0x6e>
+			}
+			
+			else{
+				PORTB = count;
+ 142:	85 b9       	out	0x05, r24	; 5
+			}
+			state = add;
+ 144:	84 e0       	ldi	r24, 0x04	; 4
+ 146:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <state>
+		break;
+ 14a:	08 95       	ret
+		
+		case(add):
+			if(PINA == 0x00){
+ 14c:	80 b1       	in	r24, 0x00	; 0
+ 14e:	81 11       	cpse	r24, r1
+ 150:	04 c0       	rjmp	.+8      	; 0x15a <tick+0x84>
+				state = wait;
+ 152:	81 e0       	ldi	r24, 0x01	; 1
+ 154:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <state>
+ 158:	08 95       	ret
+			}
+		
+			else if(PINA == add_button){
+ 15a:	90 b1       	in	r25, 0x00	; 0
+ 15c:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <add_button>
+ 160:	98 17       	cp	r25, r24
+ 162:	e9 f1       	breq	.+122    	; 0x1de <tick+0x108>
+				state = add;
+			}
+		
+			else if(PINA == sub_button){
+ 164:	90 b1       	in	r25, 0x00	; 0
+ 166:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
+ 16a:	98 13       	cpse	r25, r24
+ 16c:	04 c0       	rjmp	.+8      	; 0x176 <tick+0xa0>
+				state = sub_pressed;
+ 16e:	83 e0       	ldi	r24, 0x03	; 3
+ 170:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <state>
+ 174:	08 95       	ret
+			}
+		
+			else{
+				state = reset;
+ 176:	86 e0       	ldi	r24, 0x06	; 6
+ 178:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <state>
+ 17c:	08 95       	ret
+			}
+		break;
+		
+		case(sub_pressed):
+			if(count > 0){
+ 17e:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <__data_end>
+ 182:	88 23       	and	r24, r24
+ 184:	29 f0       	breq	.+10     	; 0x190 <tick+0xba>
+				count = count - 1;
+ 186:	81 50       	subi	r24, 0x01	; 1
+ 188:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <__data_end>
+				PORTB = count;
+ 18c:	85 b9       	out	0x05, r24	; 5
+ 18e:	01 c0       	rjmp	.+2      	; 0x192 <tick+0xbc>
+			}
+			
+			else{
+				PORTB = count;
+ 190:	15 b8       	out	0x05, r1	; 5
+			}
+			state = subtract;
+ 192:	85 e0       	ldi	r24, 0x05	; 5
+ 194:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <state>
+		break;
+ 198:	08 95       	ret
+		
+		case(subtract):
+			if(PINA == 0x00){
+ 19a:	80 b1       	in	r24, 0x00	; 0
+ 19c:	81 11       	cpse	r24, r1
+ 19e:	04 c0       	rjmp	.+8      	; 0x1a8 <tick+0xd2>
+				state = wait;
+ 1a0:	81 e0       	ldi	r24, 0x01	; 1
+ 1a2:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <state>
+ 1a6:	08 95       	ret
+			}
+			
+			else if(PINA == sub_button){
+ 1a8:	90 b1       	in	r25, 0x00	; 0
+ 1aa:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <__data_start>
+ 1ae:	98 17       	cp	r25, r24
+ 1b0:	b1 f0       	breq	.+44     	; 0x1de <tick+0x108>
+				state = subtract;
+			}
+			
+			else if(PINA == add_button){
+ 1b2:	90 b1       	in	r25, 0x00	; 0
+ 1b4:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <add_button>
+ 1b8:	98 13       	cpse	r25, r24
+ 1ba:	04 c0       	rjmp	.+8      	; 0x1c4 <tick+0xee>
+				state = add_pressed;
+ 1bc:	82 e0       	ldi	r24, 0x02	; 2
+ 1be:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <state>
+ 1c2:	08 95       	ret
+			}
+			
+			else{
+				state = reset;
+ 1c4:	86 e0       	ldi	r24, 0x06	; 6
+ 1c6:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <state>
+ 1ca:	08 95       	ret
+			}
+		break;
+		
+		case(reset):
+			count = 0;
+ 1cc:	10 92 02 01 	sts	0x0102, r1	; 0x800102 <__data_end>
+			PORTB = count;
+ 1d0:	15 b8       	out	0x05, r1	; 5
+			
+			state = wait;
+ 1d2:	81 e0       	ldi	r24, 0x01	; 1
+ 1d4:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <state>
+		break;
+ 1d8:	08 95       	ret
+		
+		default:
+			state = Init;
+ 1da:	10 92 03 01 	sts	0x0103, r1	; 0x800103 <state>
+ 1de:	08 95       	ret
+
+000001e0 <main>:
+
+//Global Variables
+
+int main(void)
+{
+	DDRA = 0x00; PINA = 0xFF;
+ 1e0:	11 b8       	out	0x01, r1	; 1
+ 1e2:	8f ef       	ldi	r24, 0xFF	; 255
+ 1e4:	80 b9       	out	0x00, r24	; 0
+	DDRB = 0xFF; PINB = 0x00;
+ 1e6:	84 b9       	out	0x04, r24	; 4
+ 1e8:	13 b8       	out	0x03, r1	; 3
+
+	state = Init;
+ 1ea:	10 92 03 01 	sts	0x0103, r1	; 0x800103 <state>
+	
+	while (1)
+	{
+		tick();
+ 1ee:	73 df       	rcall	.-282    	; 0xd6 <tick>
+ 1f0:	fe cf       	rjmp	.-4      	; 0x1ee <main+0xe>
+
+000001f2 <__tablejump2__>:
+ 1f2:	ee 0f       	add	r30, r30
+ 1f4:	ff 1f       	adc	r31, r31
+ 1f6:	00 24       	eor	r0, r0
+ 1f8:	00 1c       	adc	r0, r0
+ 1fa:	0b be       	out	0x3b, r0	; 59
+ 1fc:	07 90       	elpm	r0, Z+
+ 1fe:	f6 91       	elpm	r31, Z
+ 200:	e0 2d       	mov	r30, r0
+ 202:	09 94       	ijmp
+
+00000204 <_exit>:
+ 204:	f8 94       	cli
+
+00000206 <__stop_program>:
+ 206:	ff cf       	rjmp	.-2      	; 0x206 <__stop_program>
