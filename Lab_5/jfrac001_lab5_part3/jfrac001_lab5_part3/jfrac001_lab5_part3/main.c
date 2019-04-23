@@ -8,7 +8,7 @@
 
 unsigned char direction = 0x00;
 unsigned char light;
-unsigned char counter;
+unsigned char counter = 0x00;
 unsigned char reset = 0x00;
 unsigned char button;
 
@@ -57,16 +57,18 @@ void tick(){
 				}
 				else{
 					direction = 0x01;
-					PORTB = reset;
+					light = reset;
+					PORTB = light;
 				}
 			}
 			else{
 				if(counter == 0){
 					direction = 0x00;
-					PORTB = reset;
+					light = reset;
+					PORTB = light;
 				}
 				else{
-					light = SetBit(light, counter, 0);
+					light = SetBit(light, counter, 1);
 					counter --;
 					PORTB = light & 0x3F;
 				}

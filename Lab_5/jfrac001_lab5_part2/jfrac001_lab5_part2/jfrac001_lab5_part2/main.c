@@ -53,6 +53,15 @@ void tick(){
 			}
 			
 			else{
+				if(count < 9){
+					count = count + 1;
+					PORTB = count;
+				}
+				
+				else{
+					PORTB = count;
+				}
+				
 				state = add;
 			}
 			
@@ -60,15 +69,7 @@ void tick(){
 		
 		case(add):
 	
-				if(count < 9){
-					count = count + 1;
-					PORTB = count;
-				}
-			
-				else{
-					PORTB = count;
-				}
-			
+
 				state = wait;
 		
 		break;
@@ -79,6 +80,15 @@ void tick(){
 				state = sub_pressed;
 			}
 			else{
+								if(count > 0){
+									count = count - 1;
+									PORTB = count;
+								}
+								
+								else{
+									PORTB = count;
+								}
+								
 				state = subtract;
 			}
 			
@@ -86,15 +96,7 @@ void tick(){
 		
 		case(subtract):
 
-				if(count > 0){
-					count = count - 1;
-					PORTB = count;
-				}
-			
-				else{
-					PORTB = count;
-				}
-				
+
 				state = wait;
 			
 		break;
