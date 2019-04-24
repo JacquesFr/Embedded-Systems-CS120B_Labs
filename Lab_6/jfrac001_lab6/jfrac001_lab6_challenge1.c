@@ -1,9 +1,8 @@
 /*
- * Jacques Fracchia
- * Partner: Silvino
- * jfrac001@ucr.edu
- * Created: 4/22/2019 10:49:07 PM
- * Author : jacques
+ * jfrac001_lab6_challenge1.c
+ *
+ * Created: 4/23/2019 10:51:58 PM
+ * Author : jacqu
  */ 
 
 #include <avr/io.h>
@@ -16,7 +15,8 @@ unsigned long _avr_timer_M = 1; // Start count from here, down to 0. Default 1 m
 unsigned long _avr_timer_cntcurr = 0; // Current internal count of 1ms ticks
 
 unsigned char lights = 0x00;
-unsigned int time_count = 1000;
+unsigned int time_count = 300;
+unsigned char button = 0x00;
 
 void TimerOn() {
 	// AVR timer/counter controller register TCCR1
@@ -68,93 +68,146 @@ void TimerSet(unsigned long M) {
 	_avr_timer_cntcurr = _avr_timer_M;
 }
 
-enum state {Init, LED_1, LED_2, LED_3} state;
-	
+enum state {Init, LED_1, LED_2, LED_3, LED_4, button_pressed1, button_released1, button_pressed2} state;
+
 void tick(){
 	
 	switch(state)	{		//State Transitions
 		
 		case(Init):
-			state = LED_1;
-		break;
-		
-		case(LED_1):
-			if(!TimerFlag){
-				state = LED_1;
-			}
-			else{
-				TimerFlag = 0;
-				state = LED_2;
-			}
-		break;
-		
-		case(LED_2):
-			if(!TimerFlag){
-				state = LED_2;
-			}
-			else{
-				TimerFlag = 0;
-				state = LED_3;
-			}
-		break;
-		
-		case(LED_3):
-			if(!TimerFlag){
-				state = LED_3;
-			}
-			else{
-				TimerFlag = 0;
-				state = LED_1;
-			}
-		break;
-		
-		default:
-			state = Init;
-		break;
-	}
-	
-	switch(state){		//State Actions
-		case(Init):
 			lights = 0x00;
 			TimerFlag = 0;
+			state = LED_1;
 		break;
 		
 		case(LED_1):
 			lights = 0x01;
 			PORTB = lights;
+			
+			if(!TimerFlag){
+				if(!button){
+					state = LED_1;
+				
+				}
+				else{
+					state = button_pressed1;
+				}
+			}
+			else{
+				TimerFlag = 0;
+				state = LED_2;
+			}
 		break;
-
+		
 		case(LED_2):
 			lights = 0x02;
 			PORTB = lights;
+			if(!TimerFlag){
+				if(!button){
+					state = LED_2;
+				}
+				else{
+					state = button_pressed1;
+				}
+			}
+			else{
+				TimerFlag = 0;
+				state = LED_3;
+			}
 		break;
 		
 		case(LED_3):
 			lights = 0x04;
 			PORTB = lights;
+			
+			if(!TimerFlag){
+				if(!button){
+					state = LED_3;
+				}
+				else{
+					state = button_pressed1;
+				}
+
+			}
+			else{
+				TimerFlag = 0;
+				state = LED_4;
+			}
 		break;
 		
+		case(LED_4):
+
+			lights = 0x02;
+			PORTB = lights;
+			
+			if(!TimerFlag){
+				if(!button){
+					state = LED_4;
+				}
+				else{
+					state = button_pressed1;
+				}	
+				
+			}
+			else{
+				TimerFlag = 0;
+				state = LED_1;
+			}
+		break;
+		
+		case(button_pressed1):
+			PORTB = lights;
+			if(button){
+				state = button_pressed1;
+			}
+			else{
+				state = button_released1;
+			}
+		break;
+		
+		case(button_released1):
+			PORTB = lights;
+			if(!button){
+				state = button_released1;
+			}
+			else{
+				state = button_pressed2;
+			}
+		break;
+		
+		case(button_pressed2):
+			PORTB = lights;
+			if(button){
+				state = button_pressed2;
+			}
+			else{
+				state = Init;
+			}
+		break;
 		
 		default:
 			lights = 0x07;
 			PORTB = lights;
+			state = Init;
 		break;
 	}
+	
 }
 
 int main()
 {
 	DDRB = 0x07; // Set port B to output
 	PORTB = 0x00; // Init port B to 0s
+	DDRA = 0x00;
+	PORTA = 0x01;
 	TimerSet(time_count);
 	TimerOn();
 
 	while(1) {
-		
+		button = PINA & 0x01;
 		tick();
 		
 	}
 	
 	return 0;
 }
-

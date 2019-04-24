@@ -1,8 +1,8 @@
 /*
- * jfrac001_lab6_challenge1.c
- *
+ * Jacques Fracchia
+ * jfrac001@ucr.edu
  * Created: 4/23/2019 10:51:58 PM
- * Author : jacqu
+ * 
  */ 
 
 #include <avr/io.h>
