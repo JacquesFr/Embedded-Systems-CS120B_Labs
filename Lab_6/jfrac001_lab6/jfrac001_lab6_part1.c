@@ -1,8 +1,9 @@
 /*
- * jfrac001_lab6_part1.c
- *
+ * Jacques Fracchia
+ * Partner: Silvino
+ * jfrac001@ucr.edu
  * Created: 4/22/2019 10:49:07 PM
- * Author : jacqu
+ * Author : jacques
  */ 
 
 #include <avr/io.h>
