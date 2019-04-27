@@ -1,8 +1,6 @@
 /*
- * Timer_Template.c
- *
- * Created: 4/26/2019 12:57:37 PM
- * Author : ucrcse
+ * Jacques Fracchia
+ * jfrac001@ucr.edu
  */ 
 
 #include <avr/io.h>
@@ -10,12 +8,11 @@
 #include <time.h>
 #include <stdio.h>
 
-enum state {Init, wait, add_pressed, sub_pressed, add, subtract, reset_down, reset} state;
-
-unsigned char pinCheck = 0x00;
-unsigned char count = 0x00;
 volatile unsigned char TimerFlag = 0; // TimerISR() sets this to 1. C programmer should clear to 0.
 
+
+enum state {Init, wait, add_pressed, sub_pressed, reset} state;
+unsigned char pinCheck = 0x00;
 
 
 // Internal variables for mapping AVR's ISR to our cleaner TimerISR model.
@@ -132,128 +129,128 @@ void TimerSet(unsigned long M) {
 
 //Functions
 
+unsigned char count;
+
+//Functions
 void tick(){
-
-	//Local Variables
-
+	
 	switch(state)	{		//State Transitions
-
+		
 		case(Init):
 			state = wait;
-			count = 0x00;
-			//PORTB = count;
-			LCD_WriteData(count + '0');
+			PORTB = state;
+			count = 0x07;
 		break;
-
 		
-
 		case(wait):
-			if(pinCheck == 0x03){
-				state = reset;
-			}
-
-			else if(pinCheck == 0x01){
-				state = add_pressed;
-			}
-
-			else if(pinCheck == 0x02){
-				state = sub_pressed;
-			}
-
-			else{
-				state = wait;
-			}
-			break;
-
-		case(add_pressed):
+		
 			if(pinCheck == 0x01){
 				state = add_pressed;
+				PORTB = state;
 			}
+			
+			else if(pinCheck == 0x02){
+				state = sub_pressed;
+				PORTB = state;
+			}
+			
+			else if(pinCheck == 0x03){
+				state = reset;
+				PORTB = state;
+			}
+			
 			else{
-				if(count < 9){
-					count = count + 1;
-					//PORTB = count;
-					LCD_WriteData(count + '0');
-				}
-
-				else{
-					//PORTB = count;
-					LCD_WriteData(count + '0');
-				}
-				state = add;
+				state = wait;
+				PORTB = state;
 			}
-			break;
-
-		case(add):
-			state = wait;
+		
 		break;
-
+		
+		case(add_pressed):
+			if(count < 9){
+				count = count + 1;
+			}
+		
+			if(pinCheck == 0x01){
+				state = add_pressed;
+				PORTB = state;
+			}
+			
+			else{
+				state = wait;
+				PORTB = state;
+			}
+		
+		break;
+		
 		case(sub_pressed):
+		
+			if(count > 0){
+				count = count - 1;
+			}
+			
 			if(pinCheck == 0x02){
 				state = sub_pressed;
+				PORTB = state;
 			}
 			else{
-				if(count > 0){
-					count = count - 1;
-					//PORTB = count;
-					LCD_WriteData(count + '0');
-				}
-				else{
-					//PORTB = count;
-					LCD_WriteData(count + '0');
-				}
-				state = subtract;
+				state = wait;
+				PORTB = state;
 			}
-
-			break;
-
-		case(subtract):
-			state = wait;
+			
 		break;
-
-		case(reset_down):
+		
+		case(reset):
+			count = 0;
 			if(pinCheck == 0x03){
-				state = reset_down;
+				state = reset;
+				PORTB = state;
 			}
 			else{
-				state = reset;
+				state = wait;
+				PORTB = state;
 			}
-			break;
-
-		case(reset):
-			count = 0x00;
-			//PORTB = count;
-			LCD_WriteData(count + '0');
-			state = wait;
+			
 		break;
 		
 		default:
 			state = Init;
-			break;
-
+			PORTB = state;
+		break;
 	}
-
 	
-
 }
+
+
 
 
 int main(void)
 
 {
 	DDRA = 0x00; PORTA = 0x03;
+	DDRB = 0x0E; PORTB = 0x00;
 	DDRC = 0xFF; PORTC = 0x00;
+	DDRD = 0xC0; PORTD = 0x00;
+	
+	state = Init;
+	LCD_init();
 	TimerSet(time_count);
 	TimerOn();
-	state = Init;
 
 	while (1)
 	{
-		pinCheck = PINA & 0x03;
-		LCD_init();
+		
+		
 		tick();
-	
-		while(!TimerFlag){}
+		
+		LCD_ClearScreen();
+		LCD_Cursor(1);	
+		LCD_WriteData(count + '0');
+		
+		while(!TimerFlag){
+			pinCheck = PINA & 0x03;
+		}
+		
 		TimerFlag = 0;
 
 	}
