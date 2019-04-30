@@ -531,8 +531,8 @@ int main(void)
  308:	11 b8       	out	0x01, r1	; 1
  30a:	83 e0       	ldi	r24, 0x03	; 3
  30c:	82 b9       	out	0x02, r24	; 2
-	DDRB = 0x0F; PORTB = 0x00;
- 30e:	8f e0       	ldi	r24, 0x0F	; 15
+	DDRB = 0x0E; PORTB = 0x00;
+ 30e:	8e e0       	ldi	r24, 0x0E	; 14
  310:	84 b9       	out	0x04, r24	; 4
  312:	15 b8       	out	0x05, r1	; 5
 	DDRC = 0xFF; PORTC = 0x00;
