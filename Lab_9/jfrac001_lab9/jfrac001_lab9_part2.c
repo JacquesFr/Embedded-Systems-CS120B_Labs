@@ -1,17 +1,27 @@
 /*
  * Jacques Fracchia
  * jfrac001@ucr.edu
- * Lab 9 part 1
+ * lab9 part 2
  */ 
 
 #include <avr/io.h>
 
-unsigned char button = 0x00;
-unsigned short c_freq = 261.63;
-unsigned short d_freq = 293.66;
-unsigned short e_freq = 329.63;
 
-enum states {Init, wait, C, D, E}state;
+#define  c4  261.63
+#define  d4  293.66
+#define  e4  329.63
+#define  f4  349.23
+#define  g4  392.00
+#define  a4  440.00
+#define  b4  493.88
+#define  c5  523.25
+
+double scale[8] = {c4, d4, e4, f4, g4, a4, b4, c5};
+unsigned char button = 0x00;
+unsigned cnt = 0x00;
+
+enum states {Init, wait, higher_press, lower_press, higher, lower}state;
+	
 // 0.954 hz is lowest frequency possible with this function,
 // based on settings in PWM_on()
 // Passing in 0 as the frequency will stop the speaker from generating sound
@@ -60,46 +70,42 @@ void tick(){
 		
 		case wait:
 			if(button == 0x01){
-				state = C;
+				state = higher_press;
 			}
 			
 			else if(button == 0x02){
-				state = D;
+				state = lower_press;
 			}
-			
-			else if(button == 0x04){
-				state = E; 
-			}
-			
 			else{
 				state = wait;
 			}
 			
 			break;
 			
-		case C:
+		case higher_press:
 			if(button == 0x01){
-				state = C;
+				state = higher_press;
 			}
 			else{
-				state = wait;
+				state = higher;
 			}
 			break;
-		case D:
+			
+		case higher:
+			state = wait;
+			break;
+			
+		case lower_press:
 			if(button == 0x02){
-				state = D;
+				state = lower_press;
 			}
 			else{
-				state = wait;
+				state = lower;
 			}
 			break;
-		case E:
-			if(button == 0x04){
-				state = E;
-			}
-			else{
-				state = wait;
-			}
+			
+		case lower:
+			state = wait;
 			break;
 			
 		default:
@@ -113,19 +119,29 @@ void tick(){
 				break;
 			
 			case wait:
-				set_PWM(0);
+				set_PWM(scale[cnt]);
 				break;
 			
-			case C:
-				set_PWM(c_freq);
+			case higher_press:
+				set_PWM(scale[cnt]);
 				break;
 			
-			case D:
-				set_PWM(d_freq);
+			case higher:
+				if(cnt < 7){
+					cnt++;
+				}
+				set_PWM(scale[cnt]);
 				break;
 			
-			case E:
-				set_PWM(e_freq);
+			case lower_press:
+				set_PWM(scale[cnt]);
+				break;
+				
+			case lower:
+				if(cnt > 0){
+					cnt--;
+				}
+				set_PWM(scale[cnt]);
 				break;
 			
 			default:
@@ -141,7 +157,7 @@ int main(void)
 	
 	state = Init;
 	PWM_on();
-	set_PWM(0);
+	set_PWM(scale[cnt]);
 	
     /* Replace with your application code */
     while (1) 
@@ -151,4 +167,3 @@ int main(void)
 		
     }
 }
-
