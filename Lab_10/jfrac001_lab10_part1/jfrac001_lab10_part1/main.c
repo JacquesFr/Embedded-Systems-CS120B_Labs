@@ -1,8 +1,7 @@
 /*
- * jfrac001_lab10_part1.c
- *
- * Created: 5/7/2019 2:49:40 PM
- * Author : jacqu
+ * Jacques Fracchia
+ * jfrac001@ucr.edu
+ * Lab 10 part 1
  */ 
 
 #include <avr/io.h>
