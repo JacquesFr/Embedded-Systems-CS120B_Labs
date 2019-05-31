@@ -13,12 +13,13 @@ volatile unsigned char TimerFlag = 0; // TimerISR() sets this to 1. C programmer
 
 unsigned long _avr_timer_M = 1; 
 unsigned long _avr_timer_cntcurr = 0; 
-unsigned int time_count = 2;
+unsigned int time_count = 10;
 unsigned char cnt = 0x00;
 unsigned char cnt0 = 0x00;
 unsigned char switching = 0x00;
+unsigned char tempB = 0x00;
 
-void set_PWM(double frequency) {
+/*void set_PWM(double frequency) {
 	static double current_frequency; // Keeps track of the currently set frequency
 	// Will only update the registers when the frequency changes, otherwise allows
 	// music to play uninterrupted.
@@ -54,6 +55,7 @@ void PWM_off() {
 	TCCR3A = 0x00;
 	TCCR3B = 0x00;
 }
+*/
 
 void TimerOn() {
 
@@ -103,7 +105,7 @@ unsigned char combineLED = 0x00;
 enum threeLED_states {Init0, LED1, LED2, LED3} threeLED_state;
 enum blinkLED_states {Init1, LED_on, LED_off} blinkLED_state;
 enum combineLED_states {Init2, out} combineLED_state;
-enum speaker_states {Init3, wait, speaker_on, speaker_off} speaker_state;
+enum speaker_states {Init3, wait, speaker_on, speaker_off, speaker_on2} speaker_state;
 
 void SM_threeLED(){
 	
@@ -113,7 +115,7 @@ void SM_threeLED(){
 			break;
 		
 		case(LED1):
-			if(cnt < 150){
+			if(cnt < 30){
 				threeLED_state = LED1;
 			}
 			else{
@@ -123,7 +125,7 @@ void SM_threeLED(){
 			break;
 		
 		case(LED2):
-			if(cnt < 150){
+			if(cnt < 30){
 				threeLED_state = LED2;
 			}
 			else{
@@ -133,7 +135,7 @@ void SM_threeLED(){
 			break;
 			
 		case(LED3):
-			if(cnt < 150){
+			if(cnt < 30){
 				threeLED_state = LED3;
 			}
 			else{
@@ -179,7 +181,7 @@ void SM_blinkingLED(){
 			break;
 		
 		case(LED_on):
-			if(cnt0 < 500){
+			if(cnt0 < 100){
 				blinkLED_state = LED_on;
 			}
 			else{
@@ -189,7 +191,7 @@ void SM_blinkingLED(){
 			break;
 		
 		case(LED_off):
-			if(cnt0 < 500){
+			if(cnt0 < 100){
 				blinkLED_state = LED_off;
 			}
 			else{
@@ -246,7 +248,7 @@ void SM_combineLED(){
 		
 		case(out):
 			combineLED = threeLED | blinkingLED;
-			PORTB = combineLED;
+			
 			break;
 		
 		default:
@@ -261,13 +263,13 @@ void SM_Speaker(){
 	
 	switch(speaker_state)	{		//State Transitions
 		case(Init3):
-			if(!(switching & 0x04)){
-				speaker_state = Init3;
-			}
-			else{
-				speaker_state = speaker_on;
-			}
-			break;
+		if(!(switching & 0x04)){
+			speaker_state = Init3;
+		}
+		else{
+			speaker_state = speaker_on;
+		}
+		break;
 		
 		case(speaker_on):
 			if(!(switching & 0x04)){
@@ -276,38 +278,51 @@ void SM_Speaker(){
 			else{
 				speaker_state = speaker_off;
 			}
-			break;
-			
+		break;
+		
 		case(speaker_off):
+		if(!(switching & 0x04)){
+			speaker_state = Init3;
+		}
+		else{
+			speaker_state = speaker_on2;
+		}
+		break;
+		
+		case(speaker_on2):
 			if(!(switching & 0x04)){
 				speaker_state = Init3;
 			}
 			else{
-				speaker_state = speaker_on;
+				speaker_state = speaker_off;
 			}
 			break;
 		
 		default:
-			speaker_state = Init3;
-			break;
+		speaker_state = Init3;
+		break;
 	}
 	
 	switch(speaker_state)	{		//State Transitions
 		case(Init3):
-			set_PWM(0);
-			break;
+		tempB = 0x00;
+		break;
 		
 		case(speaker_on):
-			set_PWM(261.62);
-			break;
+		tempB = 0x10;
+		break;
 		
 		case(speaker_off):
-			set_PWM(0);
+		tempB = 0x00;
+		break;
+		
+		case(speaker_on2):
+			tempB = 0x10;
 			break;
 		
 		default:
-			set_PWM(0);
-			break;
+		tempB = 0x00;
+		break;
 	}
 }
 
@@ -322,13 +337,14 @@ int main(void)
 	TimerSet(time_count);
 	TimerOn();
 	
-	PWM_on();
-	set_PWM(0);
+	//PWM_on();
+	//set_PWM(0);
 
 	threeLED_state = Init0;
 	blinkLED_state = Init1;
 	combineLED_state = Init2;
 	speaker_state = Init3;
+	
 	
 	while (1)
 	{
@@ -336,6 +352,8 @@ int main(void)
 		SM_threeLED();
 		SM_blinkingLED();
 		SM_combineLED();
+		PORTB = combineLED | tempB;
+		
 		
 		
 		while(!TimerFlag){}

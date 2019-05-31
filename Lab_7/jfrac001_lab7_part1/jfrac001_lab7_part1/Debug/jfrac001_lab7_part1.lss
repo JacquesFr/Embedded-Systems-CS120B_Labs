@@ -527,20 +527,20 @@ void tick(){
 int main(void)
 
 {
-	DDRA = 0x00; PORTA = 0x03;
- 308:	11 b8       	out	0x01, r1	; 1
- 30a:	83 e0       	ldi	r24, 0x03	; 3
- 30c:	82 b9       	out	0x02, r24	; 2
+	DDRA = 0xF0; PORTA = 0x0F;
+ 308:	80 ef       	ldi	r24, 0xF0	; 240
+ 30a:	81 b9       	out	0x01, r24	; 1
+ 30c:	8f e0       	ldi	r24, 0x0F	; 15
+ 30e:	82 b9       	out	0x02, r24	; 2
 	DDRB = 0x0E; PORTB = 0x00;
- 30e:	8e e0       	ldi	r24, 0x0E	; 14
- 310:	84 b9       	out	0x04, r24	; 4
- 312:	15 b8       	out	0x05, r1	; 5
+ 310:	8e e0       	ldi	r24, 0x0E	; 14
+ 312:	84 b9       	out	0x04, r24	; 4
+ 314:	15 b8       	out	0x05, r1	; 5
 	DDRC = 0xFF; PORTC = 0x00;
- 314:	8f ef       	ldi	r24, 0xFF	; 255
- 316:	87 b9       	out	0x07, r24	; 7
- 318:	18 b8       	out	0x08, r1	; 8
-	DDRD = 0xC0; PORTD = 0x00;
- 31a:	80 ec       	ldi	r24, 0xC0	; 192
+ 316:	8f ef       	ldi	r24, 0xFF	; 255
+ 318:	87 b9       	out	0x07, r24	; 7
+ 31a:	18 b8       	out	0x08, r1	; 8
+	DDRD = 0xFF; PORTD = 0x00;
  31c:	8a b9       	out	0x0a, r24	; 10
  31e:	1b b8       	out	0x0b, r1	; 11
 	

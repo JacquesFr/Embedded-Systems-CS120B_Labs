@@ -229,10 +229,10 @@ void tick(){
 int main(void)
 
 {
-	DDRA = 0x00; PORTA = 0x03;
+	DDRA = 0xF0; PORTA = 0x0F;
 	DDRB = 0x0E; PORTB = 0x00;
 	DDRC = 0xFF; PORTC = 0x00;
-	DDRD = 0xC0; PORTD = 0x00;
+	DDRD = 0xFF; PORTD = 0x00;
 	
 	state = Init;
 	LCD_init();
