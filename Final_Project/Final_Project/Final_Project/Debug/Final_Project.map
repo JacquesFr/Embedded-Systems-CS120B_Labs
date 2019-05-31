@@ -755,10 +755,10 @@ END GROUP
  .debug_abbrev  0x00000000      0x729 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega1284/avr51/crtatmega1284.o
  .debug_abbrev  0x00000729      0x366 main.o
 
-.debug_line     0x00000000      0xb0a
+.debug_line     0x00000000      0xb27
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x169 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega1284/avr51/crtatmega1284.o
- .debug_line    0x00000169      0x9a1 main.o
+ .debug_line    0x00000169      0x9be main.o
 
 .debug_frame    0x00000000      0x214
  *(.debug_frame)
