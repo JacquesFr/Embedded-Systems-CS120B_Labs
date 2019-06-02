@@ -119,6 +119,12 @@ int StartGame(int state) {
 				state = start_done;
 			}
 			else{
+				nameTimer = 0x00;
+				welcomeTimer = 0x00;
+				buttonTimer = 0x00;
+				blueTimer = 0x00;
+				yellowTimer = 0x00;
+				displayLvlOneTimer = 0x00;
 				state = start_welcome;
 			}
 			break;
@@ -194,8 +200,8 @@ int main(){
 	// . . . etc
 
 	// Period for the tasks
-	unsigned long int SMTick1_calc = 100;
-	unsigned long int SMTick2_calc = 100;
+	unsigned long int SMTick1_calc = 75;
+	unsigned long int SMTick2_calc = 75;
 	//unsigned long int SMTick3_calc = 100;
 	//Calculating GCD
 	unsigned long int tmpGCD = 1;

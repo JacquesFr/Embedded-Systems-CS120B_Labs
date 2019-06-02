@@ -25,14 +25,18 @@ int HORIZONTALMOV =0;
 int specialKey;
 
 unsigned char success = 0x00;
-const unsigned char* failed = "Game Over!";
-const unsigned char* successful = "Congratulations!";
-unsigned char levelSpeed;
+const unsigned char* failed = "GAME OVER";
+const unsigned char* successful = "LEVEL COMPLETE";
+const unsigned char* nextLvlStr = "NEXT LEVEL...";
+int levelSpeed = 15;
 unsigned char successTimer = 0x00;
 unsigned char failTimer = 0x00;
 unsigned char one_nextLvlTimer = 0x00;
-unsigned char currentLevel = 0x01;
-unsigned char highScore = 0x00;
+unsigned char currentLevel = 0;
+unsigned char highScore = 0;
+unsigned char displayCurr = 0x00;
+unsigned char nextLevel = 0x00;
+unsigned char levels[] = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '\0' };
 
 
 unsigned char word1[] = {'O', 'C', 'C', 'L', 'U', 'D', 'E', '\0'};
@@ -174,7 +178,6 @@ enum SM2_States { one_wait, one_getKey, one_displayLED, one_displayLCD, check_st
 int levelOneLED(int state) {
 	next = PINA & 0x10;
 	accept = PINA & 0x20;
-	levelSpeed = 20 - currentLevel;
 	
 	switch (state) {
 		
@@ -280,7 +283,7 @@ int levelOneLED(int state) {
 			break;
 		
 		case one_failed:
-			if(failTimer < 100){
+			if(failTimer < 50){
 				state = one_failed;
 			}
 			else{
@@ -294,7 +297,10 @@ int levelOneLED(int state) {
 				state = one_success;
 			}
 			else{
-				state = one_reset;	
+				LCD_ClearScreen();
+				currentLevel = currentLevel + 1;
+				highScore = currentLevel;
+				state = display_CL;	
 			}
 			break;
 		
@@ -303,7 +309,16 @@ int levelOneLED(int state) {
 				state = display_CL;
 			}
 			else{
-				next_level;
+				state = next_level;
+			}
+			break;
+		
+		case next_level:
+			if(nextLevel < 30){
+				state = next_level;
+			}
+			else{
+				state = one_reset;
 			}
 			break;
 			
@@ -381,6 +396,20 @@ int levelOneLED(int state) {
 			success = 0x01;
 			break;
 			
+		case display_CL:
+			LCD_DisplayString(1, "Next Level: ");
+			LCD_Cursor(13);
+			LCD_WriteData(levels[currentLevel]);
+			displayCurr++;
+			break;
+		
+		case next_level:
+			LCD_DisplayString(1, "High Score: ");
+			LCD_Cursor(13);
+			LCD_WriteData(levels[highScore]);
+			nextLevel++;
+			break;
+			
 		case one_reset:
 			i = 0x00;
 			j = 0x00;
@@ -391,6 +420,9 @@ int levelOneLED(int state) {
 			key_LED[0] = 0;
 			successTimer = 0x00;
 			failTimer = 0x00;
+			nextLevel = 0x00;
+			levelSpeed--;
+			displayCurr = 0x00;
 			break;
 		
 		default:
