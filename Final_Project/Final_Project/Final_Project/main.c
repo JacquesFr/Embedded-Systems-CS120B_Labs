@@ -14,9 +14,6 @@
 #include <avr/eeprom.h>
 #include <string.h>
 #include <levelOne.h>
-#include <levelTwo.h>
-
-//#include <lcd_8bit_task.h>
 
 //--------User defined FSMs---------------------------------------------------
 //Enumeration of states.
@@ -199,11 +196,11 @@ int main(){
 	// Period for the tasks
 	unsigned long int SMTick1_calc = 100;
 	unsigned long int SMTick2_calc = 100;
-	unsigned long int SMTick3_calc = 100;
+	//unsigned long int SMTick3_calc = 100;
 	//Calculating GCD
 	unsigned long int tmpGCD = 1;
 	tmpGCD = findGCD(SMTick1_calc, SMTick2_calc);
-	tmpGCD = findGCD(tmpGCD, SMTick3_calc);
+	//tmpGCD = findGCD(tmpGCD, SMTick3_calc);
 
 	//Greatest common divisor for all tasks or smallest time unit for tasks.
 	unsigned long int GCD = tmpGCD;
@@ -211,12 +208,12 @@ int main(){
 	//Recalculate GCD periods for scheduler
 	unsigned long int SMTick1_period = SMTick1_calc/GCD;
 	unsigned long int SMTick2_period = SMTick2_calc/GCD;
-	unsigned long int SMTick3_period = SMTick3_calc/GCD;
+	//unsigned long int SMTick3_period = SMTick3_calc/GCD;
 	//unsigned long int SMTick2_period = SMTick2_calc/GCD;
 
 	//Declare an array of tasks 
-	static task task1, task2, task3;
-	task *tasks[] = { &task1, &task2, &task3};
+	static task task1, task2;
+	task *tasks[] = { &task1, &task2};
 	const unsigned short numTasks = sizeof(tasks)/sizeof(task*);
 
 	// Task 1
@@ -232,11 +229,11 @@ int main(){
 	task2.TickFct = &levelOneLED;//Function pointer for the tick.
 	
 	
-	task3.state = 0;//Task initial state.
+/*	task3.state = 0;//Task initial state.
 	task3.period = SMTick3_period;//Task Period.
 	task3.elapsedTime = SMTick3_period;//Task current elapsed time.
 	task3.TickFct = &levelTwo;//Function pointer for the tick.
-	
+*/	
 	
 	
 

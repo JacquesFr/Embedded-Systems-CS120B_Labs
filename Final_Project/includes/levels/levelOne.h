@@ -7,9 +7,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-unsigned char LvlOneComplete;
+
 unsigned char continueGame;
-unsigned char gameStart;
 unsigned char i = 0x00;
 unsigned char j = 0x00;
 unsigned char joystick = 0x00;
@@ -28,10 +27,12 @@ int specialKey;
 unsigned char success = 0x00;
 const unsigned char* failed = "Game Over!";
 const unsigned char* successful = "Congratulations!";
-const unsigned char levelSpeed = 20;
-int successTimer = 0x00;
+unsigned char levelSpeed;
+unsigned char successTimer = 0x00;
 unsigned char failTimer = 0x00;
 unsigned char one_nextLvlTimer = 0x00;
+unsigned char currentLevel = 0x01;
+unsigned char highScore = 0x00;
 
 
 unsigned char word1[] = {'O', 'C', 'C', 'L', 'U', 'D', 'E', '\0'};
@@ -168,17 +169,17 @@ int getJoystick(){
 	return HORIZONTALMOV;	
 }
 
-enum SM2_States { one_wait, one_getKey, one_displayLED, one_displayLCD, check_string, one_debounce, one_enter, one_failed, one_success, one_nextLevel, one_scroll_up, one_scroll_down, one_complete};
+enum SM2_States { one_wait, one_getKey, one_displayLED, one_displayLCD, check_string, one_debounce, one_enter, one_failed, one_success, display_CL, next_level, one_reset, one_scroll_up, one_scroll_down };
 
 int levelOneLED(int state) {
 	next = PINA & 0x10;
 	accept = PINA & 0x20;
-	//State machine transitions
+	levelSpeed = 20 - currentLevel;
+	
 	switch (state) {
 		
-		case one_wait:
-			
-			if (continueGame && !LvlOneComplete){    // Wait for button press
+		case one_wait:			
+			if (continueGame){    // Wait for button press
 				state = one_getKey;
 			}
 			else{
@@ -284,7 +285,7 @@ int levelOneLED(int state) {
 			}
 			else{
 				LCD_ClearScreen();
-				state = one_complete;
+				state = one_reset;
 			}
 			break;
 
@@ -293,31 +294,29 @@ int levelOneLED(int state) {
 				state = one_success;
 			}
 			else{
-				state = one_nextLevel;	
+				state = one_reset;	
+			}
+			break;
+		
+		case display_CL:
+			if(displayCurr < 50){
+				state = display_CL;
+			}
+			else{
+				next_level;
 			}
 			break;
 			
-			//state = one_nextLevel;
-			//break;
-		
-		case one_nextLevel:
-			if(one_nextLvlTimer < 50){
-				LCD_DisplayString(1, "Level Two...");
-				state = one_nextLevel;
-			}
-			else{
-				LvlOneComplete = 0x01;
-				state = one_complete;
-			}
-		
-		case one_complete:
-			if(LvlOneComplete){
-				state = one_complete;				
-			}
-			else{
+		case one_reset:
+			if(success){
+				continueGame = 0x01;
 				state = one_wait;
 			}
-
+			else{
+				continueGame = 0x00;
+				state = one_wait;
+			}
+			break;
 
 		default:
 			state = one_wait; // default: Initial state
@@ -326,7 +325,8 @@ int levelOneLED(int state) {
 
 	//State machine actions
 	switch (state) {
-		case one_wait:	
+		case one_wait:
+			
 			break;
 		
 		case one_getKey:
@@ -371,21 +371,26 @@ int levelOneLED(int state) {
 		case one_failed:
 			LCD_DisplayString(1, failed);
 			failTimer++;
-			continueGame = 0x00;
+			success = 0x00;
 			break;
 	
 		case one_success:
 			LCD_DisplayString(1, successful);
 			successTimer++;
+			continueGame = 0x01;
+			success = 0x01;
 			break;
 			
-		case one_nextLevel:
-			levelOne[] = "";
+		case one_reset:
 			i = 0x00;
-			one_nextLvlTimer++;
-			break;
-	
-		case one_complete:
+			j = 0x00;
+			LCD_ClearScreen();
+			LCD_Cursor(0);		
+			levelOne[0] = 0;
+			key[0] = 0;
+			key_LED[0] = 0;
+			successTimer = 0x00;
+			failTimer = 0x00;
 			break;
 		
 		default:
