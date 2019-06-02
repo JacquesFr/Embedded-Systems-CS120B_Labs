@@ -11,86 +11,180 @@
 #include <scheduler.h>
 #include <stdio.h>
 #include "io.c"
-#include <levelOne.h>
 #include <avr/eeprom.h>
 #include <string.h>
+#include <levelOne.h>
+#include <levelTwo.h>
 
 //#include <lcd_8bit_task.h>
 
 //--------User defined FSMs---------------------------------------------------
 //Enumeration of states.
-enum SM1_States { SM1_wait, SM1_gameStart, SM1_gameOn };
-const unsigned char* string = "Vocabulary Game!";
+enum SM1_States { start_welcome, start_name, start_press, start_debounce, start_blue, start_yellow, start_level, start_buffer, start_done };
+char* welcome = "Welcome to:";
+char* name = " Spelling Game!";
+char* pressStart = "Press to Start";
+char* bluebutton = "Next: Blue            Button";
+char* yellowbutton = "Accept: Yellow          Button";
+char* displayLvlOne = "Level One...";
 
+unsigned char nameTimer = 0x00;
+unsigned char welcomeTimer = 0x00;
+unsigned char buttonTimer = 0x00;
+unsigned char blueTimer = 0x00;
+unsigned char yellowTimer = 0x00;
+unsigned char displayLvlOneTimer = 0x00;
+unsigned char introPress = 0x00;
 
-// Monitors button connected to PA0. 
+// Monitors button connected to PA0.
 // When button is pressed, shared variable "pause" is toggled.
 int StartGame(int state) {
 
-    // Local Variables
-	press = PINA & 0x10;
+	// Local Variables
+	introPress = PINA & 0x30;
 
-    //State machine transitions
-    switch (state) {
-    
-		case SM1_wait:     
-			if (press){    // Wait for button press
-				state = SM1_gameStart;
+	//State machine transitions
+	switch (state) {
+		
+		case start_welcome:
+			if(welcomeTimer < 20){
+				state = start_welcome;
 			}
 			else{
-				state = SM1_wait;
+				LCD_ClearScreen();
+				state = start_name;
 			}
 			break;
 
-		case SM1_gameStart:    
-			if(press){
-				state = SM1_gameStart;
+		case start_name:
+			if(nameTimer < 50){
+				state = start_name;
 			}
 			else{
-				state = SM1_gameOn;
+				LCD_ClearScreen();
+				state = start_press;
 			}
 			break;
 
-		case SM1_gameOn:    
+		case start_press:
+			if(introPress){
+				state = start_debounce;
+			}
+			else{
+				state = start_press;
+			}
+			break;
+		
+		case start_debounce:
+			if(introPress){
+				state = start_debounce;
+			}
+			else{
+				state = start_blue;
+			}
+
+		case start_blue:
+			if(blueTimer < 30){
+				state = start_blue;
+			}
+			else{
+				LCD_ClearScreen();
+				state = start_yellow;
+			}
+			break;
+		
+		case start_yellow:
+			if(yellowTimer < 30){
+				state = start_yellow;
+			}
+			else{
+				LCD_ClearScreen();
+				state = start_level;
+			}
+			break;
+		
+		case start_level:
+			if(displayLvlOneTimer < 30){
+				state = start_level;
+			}
+			else{
+				continueGame = 0x01;
+				state = start_buffer;
+			}
+			break;
+			
+		case start_buffer:
+			state = start_done;
+			break;
+		
+		case start_done:
 			if(continueGame == 0x01){
-				state = SM1_gameOn;
+				state = start_done;
 			}
 			else{
-				state = SM1_wait;
+				state = start_welcome;
 			}
 			break;
 
-		default:        
-			state = SM1_wait; // default: Initial state
+		default:
+			state = start_welcome; // default: Initial state
 			break;
-    }
+	}
 
-    //State machine actions
-   switch (state) {
-	   
-	   case SM1_wait:
-			if(continueGame == 0x00){
-				LCD_DisplayString(1, string);
-			}
-		   break;
+	//State machine actions
+	switch (state) {
+		
+		case start_welcome:
+			LCD_DisplayString(1, welcome);
+			welcomeTimer++;
+			break;
 
-	   case SM1_gameStart:
+		case start_name:
+			LCD_DisplayString(1, name);
+			nameTimer++;
+			break;
+
+		case start_press:
+			LCD_DisplayString(1, pressStart);
+			buttonTimer++;
+			break;
+		
+		case start_debounce:
 			LCD_ClearScreen();
+			break;
+
+		case start_blue:
+			LCD_DisplayString(1, bluebutton);
+			blueTimer++;
+			break;
+		
+		case start_yellow:
+			LCD_DisplayString(1, yellowbutton);
+			yellowTimer++;
+			break;
+		
+		case start_level:
+			LCD_DisplayString(1, displayLvlOne);
+			displayLvlOneTimer++;
 			continueGame = 0x01;
-		   break;
+			break;
+			
+		case start_buffer:
+			LCD_ClearScreen();
+			break;
+		
+		case start_done:
+			break;
 
-	   case SM1_gameOn:;
-		   break;
+		default:
+			state = start_welcome; // default: Initial state
+			break;
+	}
 
-	   default:
-		   break;
-   }
-
-    return state;
+	return state;
 }
 
-
-
+ 
 
 // Implement scheduler code from PES.
 int main(){
@@ -103,13 +197,13 @@ int main(){
 	// . . . etc
 
 	// Period for the tasks
-	unsigned long int SMTick1_calc = 25;
+	unsigned long int SMTick1_calc = 100;
 	unsigned long int SMTick2_calc = 100;
-	//unsigned long int SMTick3_calc = 1000;
+	unsigned long int SMTick3_calc = 100;
 	//Calculating GCD
 	unsigned long int tmpGCD = 1;
 	tmpGCD = findGCD(SMTick1_calc, SMTick2_calc);
-	//tmpGCD = findGCD(tmpGCD, SMTick3_calc);
+	tmpGCD = findGCD(tmpGCD, SMTick3_calc);
 
 	//Greatest common divisor for all tasks or smallest time unit for tasks.
 	unsigned long int GCD = tmpGCD;
@@ -117,12 +211,12 @@ int main(){
 	//Recalculate GCD periods for scheduler
 	unsigned long int SMTick1_period = SMTick1_calc/GCD;
 	unsigned long int SMTick2_period = SMTick2_calc/GCD;
-	//unsigned long int SMTick3_period = SMTick3_calc/GCD;
+	unsigned long int SMTick3_period = SMTick3_calc/GCD;
 	//unsigned long int SMTick2_period = SMTick2_calc/GCD;
 
 	//Declare an array of tasks 
-	static task task1, task2;
-	task *tasks[] = { &task1, &task2};
+	static task task1, task2, task3;
+	task *tasks[] = { &task1, &task2, &task3};
 	const unsigned short numTasks = sizeof(tasks)/sizeof(task*);
 
 	// Task 1
@@ -137,12 +231,12 @@ int main(){
 	task2.elapsedTime = SMTick2_period;//Task current elapsed time.
 	task2.TickFct = &levelOneLED;//Function pointer for the tick.
 	
-	/*
+	
 	task3.state = 0;//Task initial state.
 	task3.period = SMTick3_period;//Task Period.
 	task3.elapsedTime = SMTick3_period;//Task current elapsed time.
-	task3.TickFct = &levelOneLCD;//Function pointer for the tick.
-	*/
+	task3.TickFct = &levelTwo;//Function pointer for the tick.
+	
 	
 	
 

@@ -1,5 +1,5 @@
-#ifndef LEVELONE_H
-#define LEVELONE_H
+#ifndef LEVELTWO_H
+#define LEVELTWO_H
 
 #define F_CPU 11059200UL //defining crystal frequency
 #include <util/delay.h>  //delay header
@@ -7,49 +7,49 @@
 #include <stdlib.h>
 #include <time.h>
 
+unsigned char two_alphabet[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '\0' };
+
 unsigned char LvlOneComplete;
-unsigned char continueGame;
-unsigned char gameStart;
-unsigned char i = 0x00;
-unsigned char j = 0x00;
-unsigned char joystick = 0x00;
-unsigned char key[];
-unsigned char key_LED[];
-unsigned char levelOne[20];
-unsigned char next = 0x00;
-unsigned char accept = 0x00;
-unsigned char key_length = 0x00;
-unsigned char temp;
-unsigned char alphabet[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '\0' };
-int HORIZONTAL=141; //neutral value on x-axis
-int HORIZONTALMOV =0;
-int specialKey;
+unsigned char a = 0x00;
+unsigned char b = 0x00;
+unsigned char joystick2 = 0x00;
+unsigned char key2[];
+unsigned char key_LED2[];
+unsigned char leveltwo[20] = "";
+unsigned char next2 = 0x00;
+unsigned char accept2 = 0x00;
+unsigned char key_length2 = 0x00;
+unsigned char temp2;
+int HORIZONTAL2=141; //neutral value on x-axis
+int HORIZONTALMOV2 =0;
+int specialKey2;
 
-unsigned char success = 0x00;
-const unsigned char* failed = "Game Over!";
-const unsigned char* successful = "Congratulations!";
-const unsigned char levelSpeed = 20;
-int successTimer = 0x00;
-unsigned char failTimer = 0x00;
-unsigned char one_nextLvlTimer = 0x00;
+unsigned char success2 = 0x00;
+const unsigned char* failed2 = "Game Over!";
+const unsigned char* successful2 = "Congratulations!";
+const unsigned char levelSpeed2 = 20;
+unsigned char successTimer2 = 0x00;
+unsigned char failTimer2 = 0x00;
 
 
-unsigned char word1[] = {'O', 'C', 'C', 'L', 'U', 'D', 'E', '\0'};
-unsigned char word2[] = {'Q', 'U', 'I', 'B', 'B', 'L', 'E', '\0'};
-unsigned char word3[] = {'A', 'R', 'R', 'A', 'N', 'T', '\0'};
-unsigned char word4[] = {'F', 'O', 'M', 'E', 'N', 'T', '\0'};
-unsigned char word5[] = {'R', 'E', 'C', 'R', 'E', 'A', 'N', 'C', 'Y', '\0'};
+unsigned char word1_two[] = {'O', 'C', 'C', 'L', 'U', 'D', 'E', '\0'};
+unsigned char word2_two[] = {'Q', 'U', 'I', 'B', 'B', 'L', 'E', '\0'};
+unsigned char word3_two[] = {'A', 'R', 'R', 'A', 'N', 'T', '\0'};
+unsigned char word4_two[] = {'F', 'O', 'M', 'E', 'N', 'T', '\0'};
+unsigned char word5_two[] = {'R', 'E', 'C', 'R', 'E', 'A', 'N', 'C', 'Y', '\0'};
 
-unsigned char word1_LED[] = { 0,0,0,0,0,0,0,0,0b11011011,0b11011011,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b01111110,0b10111101,0b11000011,0b11000011,0b11000011,0b11111111,0b11111111,0,0,0b11111110,0b11111111,0b00000011,0b00000011,0b00000011,0b00000011,0b11111111,0b11111110,0,0,0b00000011,0b00000011,0b00000011,0b00000011,0b00000011,0b00000011,0b11111111,0b11111111,0,0,0b11000011,0b11000011,0b11000011,0b11000011,0b11100111,0b01111110,0b00111100,0,0,0b11000011,0b11000011,0b11000011,0b11000011,0b11100111,0b01111110,0b00111100,0,0,0b01111110,0b11111111,0b11000011,0b11000011,0b11000011,0b11000011,0b11111111,0b01111110,0,0,0,0,0,0,0,0,0,0 };
-unsigned char word2_LED[] = { 0,0,0,0,0,0,0,0b11011011,0b11011011,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b00000011,0b00000011,0b00000011,0b00000011,0b00000011,0b00000011,0b11111111,0b11111111,0,0,0b00111100,0b01111110,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b00111100,0b01111110,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b11000011,0b11000011,0b11000011,0b11111111,0b11111111,0b11000011,0b11000011,0b11000011,0,0,0b11111110,0b11111111,0b00000011,0b00000011,0b00000011,0b00000011,0b11111111,0b11111110,0,0,0b01111110,0b11111111,0b11001111,0b11011111,0b11011011,0b11000011,0b11111111,0b01111110,0,0,0,0,0,0,0,0,0,0 };
-unsigned char word3_LED[] = { 0,0,0,0,0,0,0,0b11000000,0b11000000,0b11000000,0b11111111,0b11111111,0b11000000,0b11000000,0b11000000,0,0,0b11111111,0b11111111,0b00011100,0b00111000,0b01110000,0b11100000,0b11111111,0b11111111,0,0,0b01111111,0b11111111,0b11001100,0b11001100,0b11001100,0b11111111,0b01111111,0,0,0b01111001,0b11111011,0b11011111,0b11011110,0b11011100,0b11011000,0b11111111,0b11111111,0,0,0b01111001,0b11111011,0b11011111,0b11011110,0b11011100,0b11011000,0b11111111,0b11111111,0,0,0b01111111,0b11111111,0b11001100,0b11001100,0b11001100,0b11111111,0b01111111,0,0,0,0,0,0,0,0,0,0 };
-unsigned char word4_LED[] = { 0,0,0,0,0,0,0,0b11000000,0b11000000,0b11000000,0b11111111,0b11111111,0b11000000,0b11000000,0b11000000,0,0,0b11111111,0b11111111,0b00011100,0b00111000,0b01110000,0b11100000,0b11111111,0b11111111,0,0,0b11011011,0b11011011,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b11111111,0b11111111,0b01100000,0b01110000,0b01110000,0b01100000,0b11111111,0b11111111,0,0,0b01111110,0b11111111,0b11000011,0b11000011,0b11000011,0b11000011,0b11111111,0b01111110,0,0,0b11011000,0b11011000,0b11011000,0b11011000,0b11011000,0b11111111,0b11111111,0,0,0,0,0,0,0,0,0,0 };
-unsigned char word5_LED[] = { 0,0,0,0,0,0,0,0b01000000,0b11100000,0b01110000,0b00111111,0b00111111,0b01110000,0b11100000,0b01000000,0,0,0b11000011,0b11000011,0b11000011,0b11000011,0b11100111,0b01111110,0b00111100,0,0,0b11111111,0b11111111,0b00011100,0b00111000,0b01110000,0b11100000,0b11111111,0b11111111,0,0,0b01111111,0b11111111,0b11001100,0b11001100,0b11001100,0b11111111,0b01111111,0,0,0b11011011,0b11011011,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b01111001,0b11111011,0b11011111,0b11011110,0b11011100,0b11011000,0b11111111,0b11111111,0,0,0b11000011,0b11000011,0b11000011,0b11000011,0b11100111,0b01111110,0b00111100,0,0,0b11011011,0b11011011,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b01111001,0b11111011,0b11011111,0b11011110,0b11011100,0b11011000,0b11111111,0b11111111,0,0,0,0,0,0,0,0,0,0};
+unsigned long word1_LED_two[] = { 0,0,0,0,0,0,0,0,0b11011011,0b11011011,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b01111110,0b10111101,0b11000011,0b11000011,0b11000011,0b11111111,0b11111111,0,0,0b11111110,0b11111111,0b00000011,0b00000011,0b00000011,0b00000011,0b11111111,0b11111110,0,0,0b00000011,0b00000011,0b00000011,0b00000011,0b00000011,0b00000011,0b11111111,0b11111111,0,0,0b11000011,0b11000011,0b11000011,0b11000011,0b11100111,0b01111110,0b00111100,0,0,0b11000011,0b11000011,0b11000011,0b11000011,0b11100111,0b01111110,0b00111100,0,0,0b01111110,0b11111111,0b11000011,0b11000011,0b11000011,0b11000011,0b11111111,0b01111110,0,0,0,0,0,0,0,0,0,0 };
+unsigned long word2_LED_two[] = { 0,0,0,0,0,0,0,0b11011011,0b11011011,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b00000011,0b00000011,0b00000011,0b00000011,0b00000011,0b00000011,0b11111111,0b11111111,0,0,0b00111100,0b01111110,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b00111100,0b01111110,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b11000011,0b11000011,0b11000011,0b11111111,0b11111111,0b11000011,0b11000011,0b11000011,0,0,0b11111110,0b11111111,0b00000011,0b00000011,0b00000011,0b00000011,0b11111111,0b11111110,0,0,0b01111110,0b11111111,0b11001111,0b11011111,0b11011011,0b11000011,0b11111111,0b01111110,0,0,0,0,0,0,0,0,0,0 };
+unsigned long word3_LED_two[] = { 0,0,0,0,0,0,0,0b11000000,0b11000000,0b11000000,0b11111111,0b11111111,0b11000000,0b11000000,0b11000000,0,0,0b11111111,0b11111111,0b00011100,0b00111000,0b01110000,0b11100000,0b11111111,0b11111111,0,0,0b01111111,0b11111111,0b11001100,0b11001100,0b11001100,0b11111111,0b01111111,0,0,0b01111001,0b11111011,0b11011111,0b11011110,0b11011100,0b11011000,0b11111111,0b11111111,0,0,0b01111001,0b11111011,0b11011111,0b11011110,0b11011100,0b11011000,0b11111111,0b11111111,0,0,0b01111111,0b11111111,0b11001100,0b11001100,0b11001100,0b11111111,0b01111111,0,0,0,0,0,0,0,0,0,0 };
+unsigned long word4_LED_two[] = { 0,0,0,0,0,0,0,0b11000000,0b11000000,0b11000000,0b11111111,0b11111111,0b11000000,0b11000000,0b11000000,0,0,0b11111111,0b11111111,0b00011100,0b00111000,0b01110000,0b11100000,0b11111111,0b11111111,0,0,0b11011011,0b11011011,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b11111111,0b11111111,0b01100000,0b01110000,0b01110000,0b01100000,0b11111111,0b11111111,0,0,0b01111110,0b11111111,0b11000011,0b11000011,0b11000011,0b11000011,0b11111111,0b01111110,0,0,0b11011000,0b11011000,0b11011000,0b11011000,0b11011000,0b11111111,0b11111111,0,0,0,0,0,0,0,0,0,0 };
+unsigned long word5_LED_two[] = { 0,0,0,0,0,0,0,0b01000000,0b11100000,0b01110000,0b00111111,0b00111111,0b01110000,0b11100000,0b01000000,0,0,0b11000011,0b11000011,0b11000011,0b11000011,0b11100111,0b01111110,0b00111100,0,0,0b11111111,0b11111111,0b00011100,0b00111000,0b01110000,0b11100000,0b11111111,0b11111111,0,0,0b01111111,0b11111111,0b11001100,0b11001100,0b11001100,0b11111111,0b01111111,0,0,0b11011011,0b11011011,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b01111001,0b11111011,0b11011111,0b11011110,0b11011100,0b11011000,0b11111111,0b11111111,0,0,0b11000011,0b11000011,0b11000011,0b11000011,0b11100111,0b01111110,0b00111100,0,0,0b11011011,0b11011011,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b01111001,0b11111011,0b11011111,0b11011110,0b11011100,0b11011000,0b11111111,0b11111111,0,0,0,0,0,0,0,0,0,0};
+	
+
+/*
 
 int getRandomKey(){
 	int num;
-	num = rand();
-	num = num % 4;
+	num = rand() % 5;
 	return num;
 	
 }
@@ -62,8 +62,8 @@ void append(unsigned char* s, unsigned char c) {
 
 unsigned char compare(unsigned char* user, unsigned char* game){
 	unsigned char pass = 0x01;
-	key_length = strlen(game);
-	for(int x=0; x<key_length; x++){
+	key_length2 = strlen(game);
+	for(int x=0; x<key_length2; x++){
 		if(user[x] != game[x]){
 			pass = 0x00;
 		}
@@ -72,59 +72,53 @@ unsigned char compare(unsigned char* user, unsigned char* game){
 }
 
 	
-void levelOneLEDisplay(){
+void levelTwoLEDisplay(){
 	//unsigned char* Letters = buildWords(occlude);
 	char PORT[8] = {1,2,4,8,16,32,64,128}; //pin values of a port 2^0,2^1,2^2……2^7
-	specialKey = getRandomKey();
+	specialKey2 = getRandomKey();
 		
-	if(specialKey == 0){
-		for(int x=75; x >= 0; x--){
-			for(int a=0; a < levelSpeed; a++){
+	if(specialKey2 == 0){
+		for(int x=word_1LED_length_two; x >= 0; x--){
+			for(int a=0; a < levelSpeed2; a++){
 				for (int i=0; i < 8; i++){
 					PORTB = ~PORT[i];    //ground the PORTB pin
-					PORTC = word1_LED[i+x];  //power the PORTC
+					PORTC = word1_LED_two[i+x];  //power the PORTC
 					_delay_ms(1);
 					PORTB = PORT[i];     //clear pin after 1msec
 				}
 			}
 		}
-		PORTB = 0x00;
-		PORTC = 0x00;
 	}
 	
-	if(specialKey == 1){
-		for(int x = 75; x >= 0; x--){
-			for(int a=0; a < levelSpeed; a++){
+	if(specialKey2 == 1){
+		for(int x = word_2LED_length_two; x >= 0; x--){
+			for(int a=0; a < levelSpeed2; a++){
 				for (int i=0; i < 8; i++){
 					PORTB = ~PORT[i];    //ground the PORTB pin
-					PORTC = word2_LED[i+x];  //power the PORTC
+					PORTC = word2_LED_two[i+x];  //power the PORTC
 					_delay_ms(1);
 					PORTB = PORT[i];     //clear pin after 1msec
 				}
 			}
 		}
-		PORTB = 0x00;
-		PORTC = 0x00;
 	}
 	
-	if(specialKey == 2){
-		for(int x = 75; x >= 0; x--){
-			for(int a=0; a < levelSpeed; a++){
+	if(specialKey2 == 2){
+		for(int x = word_3LED_length_two; x >= 0; x--){
+			for(int a=0; a < levelSpeed2; a++){
 				for (int i=0; i < 8; i++){
 					PORTB = ~PORT[i];    //ground the PORTB pin
-					PORTC = word3_LED[i+x];  //power the PORTC
+					PORTC = word3_LED_two[i+x];  //power the PORTC
 					_delay_ms(1);
 					PORTB = PORT[i];     //clear pin after 1msec
 				}
 			}
 		}
-		PORTB = 0x00;
-		PORTC = 0x00;
 	}
 	
-	if(specialKey == 3){
-		for(int x = 75; x >= 0; x--){
-			for(int a = 0; a < levelSpeed; a++){
+	if(specialKey2 == 3){
+		for(int x = word_4LED_length_two; x >= 0; x--){
+			for(int a = 0; a < levelSpeed2; a++){
 				for (int i = 0; i < 8; i++){
 					PORTB = ~PORT[i];    //ground the PORTB pin
 					PORTC = word4_LED[i+x];  //power the PORTC
@@ -133,24 +127,20 @@ void levelOneLEDisplay(){
 				}
 			}
 		}
-		PORTB = 0x00;
-		PORTC = 0x00;
 	}
 	
-	if(specialKey == 4) {
-		for(int x = 100; x >= 0; x--){
-			for(int a=0; a < levelSpeed; a++){
+	if(specialKey2 == 4) {
+		for(int x = word_5LED_length_two; x >= 0; x--){
+			for(int a=0; a < levelSpeed2; a++){
 				for (int i = 0; i < 8; i++){
 					PORTB = ~PORT[i];    //ground the PORTB pin
-					PORTC = word5_LED[i+x];  //power the PORTC
+					PORTC = word5_LED_two[i+x];  //power the PORTC
 					_delay_ms(1);
 					PORTB = PORT[i];     //clear pin after 1msec
 				}
 			}
 		}
 	}
-	PORTB = 0x00;
-	PORTC = 0x00;
 }
 
 void ADC_init() {
@@ -162,234 +152,215 @@ int getJoystick(){
 	ADMUX = 0x40;
 	ADCSRA |=(1<<ADSC);//start ADC conversion
 	while ( !(ADCSRA & (1<<ADIF)));//wait till ADC conversion	
-	HORIZONTALMOV = ADC;//moving value
+	HORIZONTALMOV2 = ADC;//moving value
 	ADC=0;//reset ADC register	
 	
-	return HORIZONTALMOV;	
+	return HORIZONTALMOV2;	
 }
+*/
 
-enum SM2_States { one_wait, one_getKey, one_displayLED, one_displayLCD, check_string, one_debounce, one_enter, one_failed, one_success, one_nextLevel, one_scroll_up, one_scroll_down, one_complete};
+enum levelTwo_states { two_wait, two_getKey, two_displayLED, two_displayLCD, two_check_string, two_debounce, two_enter, two_failed, two_success, two_scroll_up, two_scroll_down, two_complete};
 
-int levelOneLED(int state) {
-	next = PINA & 0x10;
-	accept = PINA & 0x20;
+int levelTwo(int state) {
+	next2 = PINA & 0x10;
+	accept2 = PINA & 0x20;
 	//State machine transitions
 	switch (state) {
 		
-		case one_wait:
+		case two_wait:
 			
-			if (continueGame && !LvlOneComplete){    // Wait for button press
-				state = one_getKey;
+			if (LvlOneComplete){    // Wait for button press
+				LCD_Cursor(0);
+				state = two_getKey;
+				
 			}
 			else{
-				state = one_wait;
+				state = two_wait;
 			}
 			break;
 		
-		case one_getKey:
-			state = one_displayLED;
+		case two_getKey:
+			state = two_displayLED;
 			break;
 			
 
-		case one_displayLED:
-			state = one_displayLCD;
+		case two_displayLED:
+			state = two_displayLCD;
 			break;
 			
-		case one_displayLCD:
+		case two_displayLCD:
 			joystick = getJoystick();
 			
-			if(next){
-				state = one_debounce;
+			if(next2){
+				state = two_debounce;
 			}
 			
-			else if(joystick>(HORIZONTAL+50)){
-				if(i>=0 && i<26){
-					state = one_scroll_up;
+			else if(joystick>(HORIZONTAL2+50)){
+				if(a>=0 && a<26){
+					state = two_scroll_up;
 					
 				}
 				else{
-					state = one_displayLCD;
+					state = two_displayLCD;
 				}
 			}
 			
-			else if(joystick<(HORIZONTAL-100)){
-				if(i>=0 && i<26){
-					state = one_scroll_down;
+			else if(joystick<(HORIZONTAL2-100)){
+				if(a>=0 && a<26){
+					state = two_scroll_down;
 				}
 				else{
-					state = one_displayLCD;
+					state = two_displayLCD;
 				}
 			}
 			
-			else if(accept){
-				temp = alphabet[i];
-				append(levelOne, temp);
-				state = check_string;
+			else if(accept2){
+				temp2 = two_alphabet[a];
+				append(leveltwo, temp2);
+				state = two_check_string;
 			}
 			
 			else{	
-				state = one_displayLCD;
+				state = two_displayLCD;
 			}	
 			break;
 		
-		case one_debounce:
-			if(next){
-				state = one_debounce;
+		case two_debounce:
+			if(next2){
+				state = two_debounce;
 			}
 			else{
-				state = one_enter;
+				state = two_enter;
 			}
 			break;
 		
-		case one_enter:
-			state = one_displayLCD;
+		case two_enter:
+			state = two_displayLCD;
 			break;
 			
-		case check_string:
-			if(specialKey == 0){
-				success = compare(levelOne, word1);
+		case two_check_string:
+			if(specialKey2 == 0){
+				success2 = compare(leveltwo, word1_two);
 			}
-			else if(specialKey == 1){
-				success = compare(levelOne, word2);
+			else if(specialKey2 == 1){
+				success2 = compare(leveltwo, word2_two);
 			}
-			else if(specialKey == 2){
-				success = compare(levelOne, word3);
+			else if(specialKey2 == 2){
+				success2 = compare(leveltwo, word3_two);
 			}
-			else if(specialKey == 3){
-				success = compare(levelOne, word4);
+			else if(specialKey2 == 3){
+				success2 = compare(leveltwo, word4_two);
 			}
 			else {
-				success = compare(levelOne, word5);
+				success2 = compare(leveltwo, word5_two);
 			}
 			
-			if(success){
-				state = one_success;
+			if(success2){
+				state = two_success;
 			}
 			else{
-				state = one_failed;
+				state = two_failed;
 			}
 			break;
 		
-		case one_scroll_down:
-			state = one_displayLCD;
+		case two_scroll_down:
+			state = two_displayLCD;
 			break;
 		
-		case one_scroll_up:
-			state = one_displayLCD;
+		case two_scroll_up:
+			state = two_displayLCD;
 			break;
 		
-		case one_failed:
-			if(failTimer < 100){
-				state = one_failed;
+		case two_failed:
+			if(failTimer2 < 100){
+				state = two_failed;
 			}
 			else{
-				LCD_ClearScreen();
-				state = one_complete;
+				state = two_complete;
 			}
 			break;
 
-		case one_success:
-			if(successTimer < 50){
-				state = one_success;
+		case two_success:
+			if(successTimer2 < 100){
+				state = two_success;
 			}
 			else{
-				state = one_nextLevel;	
+				state = two_complete;	
 			}
 			break;
-			
-			//state = one_nextLevel;
-			//break;
 		
-		case one_nextLevel:
-			if(one_nextLvlTimer < 50){
-				LCD_DisplayString(1, "Level Two...");
-				state = one_nextLevel;
-			}
-			else{
-				LvlOneComplete = 0x01;
-				state = one_complete;
-			}
-		
-		case one_complete:
+		case two_complete:
 			if(LvlOneComplete){
-				state = one_complete;				
+				state = two_complete;				
 			}
 			else{
-				state = one_wait;
+				state = two_wait;
 			}
 
 
 		default:
-			state = one_wait; // default: Initial state
+			state = two_wait; // default: Initial state
 			break;
 	}
 
 	//State machine actions
 	switch (state) {
-		case one_wait:	
+		case two_wait:	
 			break;
 		
-		case one_getKey:
-			specialKey = getRandomKey();
+		case two_getKey:
+			specialKey2 = getRandomKey();
 			break;
 
-		case one_displayLED:
+		case two_displayLED:
 			LCD_ClearScreen();
 			levelOneLEDisplay();
 			break;
 
-		case one_displayLCD:
-			LCD_Cursor(j+1);
-			LCD_WriteData(alphabet[i]);
+		case two_displayLCD:
+			LCD_DisplayString(1, two_alphabet[a]);
 			break;
 			
-		case one_debounce:
+		case two_debounce:
 			break;
 			
-		case one_enter:
-			temp = alphabet[i];
-			append(levelOne, temp);
-			j++;
+		case two_enter:
+			temp2 = two_alphabet[a];
+			append(leveltwo, temp2);
+			b++;
 			break;
 		
-		case one_scroll_down:
-			if(i>0){
-				i--;
+		case two_scroll_down:
+			if(a>0){
+				a--;
 			}
 			break;
 		
-		case one_scroll_up:
-			if(i<25){
-				i++;
+		case two_scroll_up:
+			if(a<25){
+				a++;
 			}
 			break;
 			
-		case check_string:
+		case two_check_string:
 			LCD_ClearScreen();
 			break;
 			
-		case one_failed:
-			LCD_DisplayString(1, failed);
-			failTimer++;
-			continueGame = 0x00;
+		case two_failed:
+			LCD_DisplayString(1, failed2);
+			failTimer2++;
 			break;
 	
-		case one_success:
-			LCD_DisplayString(1, successful);
-			successTimer++;
-			break;
-			
-		case one_nextLevel:
-			levelOne[] = "";
-			i = 0x00;
-			one_nextLvlTimer++;
+		case two_success:
+			LCD_DisplayString(1, successful2);
+			successTimer2++;
 			break;
 	
-		case one_complete:
+		case two_complete:
 			break;
 		
 		default:
-			state = one_wait; // default: Initial state
+			state = two_wait; // default: Initial state
 			break;
 	}
 
