@@ -14,6 +14,7 @@
 #include <avr/eeprom.h>
 #include <string.h>
 #include <levelOne.h>
+#include <levelFunctions.h>
 
 //--------User defined FSMs---------------------------------------------------
 //Enumeration of states.
@@ -105,7 +106,6 @@ int StartGame(int state) {
 				state = start_level;
 			}
 			else{
-				continueGame = 0x01;
 				state = start_buffer;
 			}
 			break;
@@ -169,10 +169,11 @@ int StartGame(int state) {
 		case start_level:
 			LCD_DisplayString(1, displayLvlOne);
 			displayLvlOneTimer++;
-			continueGame = 0x01;
 			break;
 			
 		case start_buffer:
+			continueGame = 0x01;
+			currentLevel = 0x00;
 			LCD_ClearScreen();
 			break;
 		
