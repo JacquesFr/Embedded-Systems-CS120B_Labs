@@ -16,9 +16,8 @@
 #include <levelOne.h>
 #include <levelFunctions.h>
 
-//--------User defined FSMs---------------------------------------------------
-//Enumeration of states.
-enum SM1_States { start_welcome, start_name, start_press, start_debounce, start_blue, start_yellow, start_level, start_buffer, start_done };
+
+	
 char* welcome = "Welcome to:";
 char* name = " Spelling Game!";
 char* pressStart = "Press to Start";
@@ -28,14 +27,18 @@ char* displayLvlOne = "Level One...";
 
 unsigned char nameTimer = 0x00;
 unsigned char welcomeTimer = 0x00;
+unsigned char customTimer = 0x00;
 unsigned char buttonTimer = 0x00;
 unsigned char blueTimer = 0x00;
 unsigned char yellowTimer = 0x00;
 unsigned char displayLvlOneTimer = 0x00;
 unsigned char introPress = 0x00;
 
-// Monitors button connected to PA0.
-// When button is pressed, shared variable "pause" is toggled.
+
+
+
+enum SM1_States { start_welcome, start_custom, start_name, start_press, start_debounce, start_blue, start_yellow, start_level, start_buffer, start_done };
+	
 int StartGame(int state) {
 
 	// Local Variables
@@ -47,6 +50,16 @@ int StartGame(int state) {
 		case start_welcome:
 			if(welcomeTimer < 20){
 				state = start_welcome;
+			}
+			else{
+				LCD_ClearScreen();
+				state = start_custom;
+			}
+			break;
+			
+		case start_custom:
+			if(customTimer < 30){
+				state = start_custom;
 			}
 			else{
 				LCD_ClearScreen();
@@ -141,6 +154,11 @@ int StartGame(int state) {
 			LCD_DisplayString(1, welcome);
 			welcomeTimer++;
 			break;
+			
+		case start_custom:
+			createCustom();
+			customTimer++;
+			break;
 
 		case start_name:
 			LCD_DisplayString(1, name);
@@ -201,7 +219,7 @@ int main(){
 	// . . . etc
 
 	// Period for the tasks
-	unsigned long int SMTick1_calc = 75;
+	unsigned long int SMTick1_calc = 150;
 	unsigned long int SMTick2_calc = 75;
 	//unsigned long int SMTick3_calc = 100;
 	//Calculating GCD
