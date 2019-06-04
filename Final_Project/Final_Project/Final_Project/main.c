@@ -24,10 +24,13 @@ char* pressStart = "Press to Start";
 char* bluebutton = "Next: Blue            Button";
 char* yellowbutton = "Accept: Yellow          Button";
 char* displayLvlOne = "Level One...";
+unsigned char position = 0x00;
+unsigned char curs = 0x00;
 
 unsigned char nameTimer = 0x00;
 unsigned char welcomeTimer = 0x00;
 unsigned char customTimer = 0x00;
+unsigned char customCount = 0x00;
 unsigned char buttonTimer = 0x00;
 unsigned char blueTimer = 0x00;
 unsigned char yellowTimer = 0x00;
@@ -58,7 +61,7 @@ int StartGame(int state) {
 			break;
 			
 		case start_custom:
-			if(customTimer < 30){
+			if(customTimer < 32){
 				state = start_custom;
 			}
 			else{
@@ -156,8 +159,11 @@ int StartGame(int state) {
 			break;
 			
 		case start_custom:
-			createCustom();
+			createCustom(position, curs);
+			position = (position + 1) % 12;
+			curs = (curs + 1) % 32;
 			customTimer++;
+			
 			break;
 
 		case start_name:

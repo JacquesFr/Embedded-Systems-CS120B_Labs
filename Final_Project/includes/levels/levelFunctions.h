@@ -17,6 +17,7 @@ unsigned char word4_LED[] = { 0,0,0,0,0,0,0,0b11000000,0b11000000,0b11000000,0b1
 unsigned char word5_LED[] = { 0,0,0,0,0,0,0,0b01000000,0b11100000,0b01110000,0b00111111,0b00111111,0b01110000,0b11100000,0b01000000,0,0,0b11000011,0b11000011,0b11000011,0b11000011,0b11100111,0b01111110,0b00111100,0,0,0b11111111,0b11111111,0b00011100,0b00111000,0b01110000,0b11100000,0b11111111,0b11111111,0,0,0b01111111,0b11111111,0b11001100,0b11001100,0b11001100,0b11111111,0b01111111,0,0,0b11011011,0b11011011,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b01111001,0b11111011,0b11011111,0b11011110,0b11011100,0b11011000,0b11111111,0b11111111,0,0,0b11000011,0b11000011,0b11000011,0b11000011,0b11100111,0b01111110,0b00111100,0,0,0b11011011,0b11011011,0b11011011,0b11011011,0b11011011,0b11111111,0b11111111,0,0,0b01111001,0b11111011,0b11011111,0b11011110,0b11011100,0b11011000,0b11111111,0b11111111,0,0,0,0,0,0,0,0,0,0};
 
 
+
 //Level Functions
 
 
@@ -36,28 +37,78 @@ void WriteCustom (unsigned char loc, unsigned char *msg){
 	LCD_WriteCommand(0x80);
 }
 
-void createCustom(){
-	WriteCustom(0, sqr0);
-	LCD_Cursor(1);
-	LCD_WriteData(0);
-	WriteCustom(1, sqr1);
-	LCD_Cursor(2);
-	LCD_WriteData(1);
-	WriteCustom(2, sqr2);
-	LCD_Cursor(3);
-	LCD_WriteData(2);
-	WriteCustom(3, sqr3);
-	LCD_Cursor(4);
-	LCD_WriteData(3);
-	WriteCustom(4, sqr4);
-	LCD_Cursor(5);
-	LCD_WriteData(4);
-	WriteCustom(5, sqr5);
-	LCD_Cursor(6);
-	LCD_WriteData(5);
-	WriteCustom(6, sqr6);
-	LCD_Cursor(7);
-	LCD_WriteData(6);
+void createCustom(unsigned char pos, unsigned char j){
+	switch(pos){
+		case 0:
+			WriteCustom(0, sqr0);
+			LCD_Cursor(j);
+			LCD_WriteData(0);
+			break;
+			
+		case 1:
+			WriteCustom(1, sqr1);
+			LCD_Cursor(j);
+			LCD_WriteData(1);
+			break;
+			
+		case 2:
+			WriteCustom(2, sqr2);
+			LCD_Cursor(j);
+			LCD_WriteData(2);
+			break;
+		case 3:
+			WriteCustom(3, sqr3);
+			LCD_Cursor(j);
+			LCD_WriteData(3);
+			break;
+		case 4:
+			WriteCustom(4, sqr4);
+			LCD_Cursor(j);
+			LCD_WriteData(4);
+			break;
+		
+		case 5:
+			WriteCustom(5, sqr5);
+			LCD_Cursor(j);
+			LCD_WriteData(5);
+			break;
+		case 6:
+			WriteCustom(6, sqr6);
+			LCD_Cursor(j);
+			LCD_WriteData(6);
+			break;
+		case 7:
+			WriteCustom(5, sqr5);
+			LCD_Cursor(j);
+			LCD_WriteData(5);
+			break;
+		case 8:
+			WriteCustom(4, sqr4);
+			LCD_Cursor(j);
+			LCD_WriteData(4);
+			break;
+		case 9:
+			WriteCustom(3, sqr3);
+			LCD_Cursor(j);
+			LCD_WriteData(3);
+			break;
+		case 10:
+			WriteCustom(2, sqr2);
+			LCD_Cursor(j);
+			LCD_WriteData(2);
+			break;
+		case 11:
+			WriteCustom(1, sqr1);
+			LCD_Cursor(j);
+			LCD_WriteData(1);
+			break;
+		case 12:
+			WriteCustom(0, sqr0);
+			LCD_Cursor(j);
+			LCD_WriteData(0);
+			break;
+	}
+	
 }
 
 void append(unsigned char* s, unsigned char c) {
