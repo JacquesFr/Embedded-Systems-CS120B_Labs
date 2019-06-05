@@ -1,7 +1,7 @@
 /*
  * Jacques Fracchia
  * CS120b Project
- * UCR
+ * UCR - Spring 2019
  */ 
 
 #include <avr/io.h>
@@ -141,6 +141,7 @@ int StartGame(int state) {
 				blueTimer = 0x00;
 				yellowTimer = 0x00;
 				displayLvlOneTimer = 0x00;
+				customTimer = 0x00;
 				state = start_welcome;
 			}
 			break;
@@ -225,7 +226,7 @@ int main(){
 	// . . . etc
 
 	// Period for the tasks
-	unsigned long int SMTick1_calc = 150;
+	unsigned long int SMTick1_calc = 100;
 	unsigned long int SMTick2_calc = 75;
 	//unsigned long int SMTick3_calc = 100;
 	//Calculating GCD

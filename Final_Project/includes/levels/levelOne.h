@@ -1,6 +1,11 @@
 #ifndef LEVELONE_H
 #define LEVELONE_H
 
+/*
+Jacques Fracchia
+Level Task
+*/
+
 #define F_CPU 11059200UL //defining crystal frequency
 #include <util/delay.h>  //delay header
 #include <string.h>
@@ -29,7 +34,7 @@ unsigned char success = 0x00;
 const unsigned char* failed = "GAME OVER";
 const unsigned char* successful = "LEVEL COMPLETE";
 const unsigned char* nextLvlStr = "NEXT LEVEL...";
-int levelSpeed = 15;
+int levelSpeed = 20;
 unsigned char successTimer = 0x00;
 unsigned char failTimer = 0x00;
 unsigned char one_nextLvlTimer = 0x00;
@@ -37,14 +42,20 @@ unsigned char currentLevel = 0;
 unsigned char high_score = 0;
 unsigned char displayCurr = 0x00;
 unsigned char nextLevel = 0x00;
+unsigned char wordNum = -1;
 
 unsigned char alphabet[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '\0' };
 unsigned char levels[] = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '\0' };
 unsigned char word1[] = {'O', 'C', 'C', 'L', 'U', 'D', 'E', '\0'};
 unsigned char word2[] = {'Q', 'U', 'I', 'B', 'B', 'L', 'E', '\0'};
 unsigned char word3[] = {'A', 'R', 'R', 'A', 'N', 'T', '\0'};
-unsigned char word4[] = {'F', 'O', 'M', 'E', 'N', 'T', '\0'};
-unsigned char word5[] = {'R', 'E', 'C', 'R', 'E', 'A', 'N', 'C', 'Y', '\0'};
+unsigned char word5[] = {'F', 'O', 'M', 'E', 'N', 'T', '\0'};
+unsigned char word4[] = {'R', 'E', 'C', 'R', 'E', 'A', 'N', 'C', 'Y', '\0'};
+unsigned char word6[] = { 'O', 'P', 'A', 'Q', 'U', 'E', '\0' };
+unsigned char word7[] = {'E', 'N', 'I', 'G', 'M', 'A', '\0'};
+unsigned char word8[] = {'V', 'A', 'C', 'I', 'L', 'L', 'A', 'T', 'E', '\0'};
+unsigned char word9[] = {'A', 'P', 'A', 'T', 'H', 'Y', '\0'};
+unsigned char word10[] = {'B', 'O', 'L', 'S', 'T', 'E', 'R', '\0' };
 
 unsigned char compare(unsigned char* user, unsigned char* game){
 	unsigned char pass = 0x01;
@@ -147,8 +158,23 @@ int levelOneLED(int state) {
 			else if(specialKey == 3){
 				success = compare(levelOne, word4);
 			}
-			else {
+			else if(specialKey == 4){
 				success = compare(levelOne, word5);
+			}
+			else if(specialKey == 5){
+				success = compare(levelOne, word6);
+			}
+			else if(specialKey == 6){
+				success = compare(levelOne, word7);
+			}
+			else if(specialKey == 7){
+				success = compare(levelOne, word8);
+			}
+			else if(specialKey == 8){ 
+				success = compare(levelOne, word9);
+			}
+			else {
+				success = compare(levelOne, word10);
 			}
 			
 			if(success){
@@ -225,7 +251,6 @@ int levelOneLED(int state) {
 	//State machine actions
 	switch (state) {
 		case one_wait:
-			
 			break;
 		
 		case one_getKey:
@@ -234,7 +259,7 @@ int levelOneLED(int state) {
 
 		case one_displayLED:
 			LCD_ClearScreen();
-			levelOneLEDisplay();
+			levelOneLEDisplay(specialKey);
 			break;
 
 		case one_displayLCD:
@@ -320,7 +345,7 @@ int levelOneLED(int state) {
 			successTimer = 0x00;
 			failTimer = 0x00;
 			nextLevel = 0x00;
-			levelSpeed--;
+			levelSpeed = levelSpeed - 1;
 			displayCurr = 0x00;
 			break;
 		
